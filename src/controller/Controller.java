@@ -1,6 +1,7 @@
 package controller;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import model.*;
 
@@ -27,5 +28,24 @@ public class Controller {
      * sheel 25er 3 shoor men el sales
      */
   }
+  
+  public User login(String name , String password){
+	  
+	  return null;
+  }
+  
+   public void signup(User user){
+	  
+  }
+   
+   public void editInformation(User user){
+   }
+   
+   public ArrayList<Book> searchBook(String attrubite , String value){
+	   return null;
+   }
+   
+   
+   }
   
 }
