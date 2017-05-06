@@ -14,13 +14,22 @@ public class Book {
   private int numberOfCopies ;
   private int threshold ;
   private String category ;
-
+  private int salesNumber;
+  
   public Book(){
     this.price = 20;
     this.numberOfCopies = 0;
     this.threshold = 0;
 
   }
+  
+  public int getSalesNumber() {
+    return salesNumber;
+  }
+  public void setSalesNumber(int salesNumber) {
+    this.salesNumber = salesNumber;
+  }
+  
   public int getISBN() {
     return ISBN;
   }
@@ -57,10 +66,10 @@ public class Book {
   public void setPrice(double price) {
     this.price = price;
   }
-  public int getNumber_of_copies() {
+  public int getNumberOfCopies() {
     return numberOfCopies;
   }
-  public void setNumber_of_copies(int number_of_copies) {
+  public void setNumberOfCopies(int number_of_copies) {
     this.numberOfCopies = number_of_copies;
   }
   public int getThreshold() {

@@ -3,6 +3,8 @@ import controller.Controller;
 
 
 
+
+
 import java.sql.*;
 import java.util.*;
 
@@ -14,8 +16,9 @@ public class User {
   private String email ;
   private String phoneNumber ;
   private String shippingAddress ;
+  private int salesNumber;
 
-  private LinkedHashMap<Book,Integer> shoppingCart;
+  private LinkedHashMap<Book,Integer> shoppingCart = new LinkedHashMap<Book,Integer>();
   
  
   
@@ -33,6 +36,7 @@ public class User {
     query +=" WHERE name =  " + this.userName;
     Controller.stmt.executeUpdate(query);  
   }
+  
   public ResultSet searchBook(String attrubite , String value) throws SQLException{
     if(attrubite.equals("author ")){
       return searchBookByAuthor(value);
@@ -49,38 +53,31 @@ public class User {
   
 
   public void addBookToShoppingCart(Book book , int tobuy){
-    shoppingCart.put(book,tobuy);
+    this.shoppingCart.put(book,tobuy);
   }
   public void addBookToShoppingCart(Book book){
-    shoppingCart.put(book,1);
+    this.shoppingCart.put(book,1);
   }
   
   
   
-  public void checkOut() {
-    /*
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     * Transcation and insert into sales
-     */
+  public void checkOut() throws SQLException {
+    for(Book book : this.shoppingCart.keySet()){
+      int tobuy = this.shoppingCart.get(book);
+      int numberOfCopies = book.getNumberOfCopies()-tobuy;
+      String query = "Update book" 
+          +" SET  number_of_copies = " + numberOfCopies ;
+      query  += " WHERE ISBN =  " + book.getISBN();
+      Controller.stmt.executeUpdate(query); 
+      String add = "Insert into sales (ISBN,user_name,selling_date,"
+          + "selling_time,sales_number)"
+          + "values (" + book.getISBN()+ " ,"
+          + " " + this.userName + " ,"
+          + " current_date() ,  current_time() , "+ tobuy + " ) ";
+      Controller.stmt.executeUpdate(add); 
+    }
+    this.shoppingCart = new LinkedHashMap<Book,Integer>();
+
   }
   
   
@@ -137,6 +134,12 @@ public class User {
     String query = "Update user SET isManager = true";
     query +=" WHERE name =  " + this.userName;
     Controller.stmt.executeUpdate(query);  
+  }
+  public int getSalesNumber() {
+    return salesNumber;
+  }
+  public void setSalesNumber(int salesNumber) {
+    this.salesNumber = salesNumber;
   }
   
 }

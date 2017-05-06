@@ -31,7 +31,8 @@ public class Manager extends User {
   }
 
   public ResultSet getTotalSales() throws SQLException {
-    String query = "Select sum(sales_number) from sales where  selling_date between (current_Date() - Interval 1 Month) "
+    String query = "Select sum(sales_number) from sales where  "
+        + "selling_date between (current_Date() - Interval 1 Month) "
         + "And Current_Date()";
     return Controller.stmt.executeQuery(query);
 
