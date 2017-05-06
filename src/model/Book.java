@@ -20,7 +20,6 @@ public class Book {
     this.numberOfCopies = 0;
     this.threshold = 0;
 
-
   }
   public int getISBN() {
     return ISBN;
