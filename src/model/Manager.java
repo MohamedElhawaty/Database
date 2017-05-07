@@ -58,4 +58,8 @@ public class Manager extends User {
     String query = "Select * from user where isManager = false";
     return Controller.stmt.executeQuery(query);
   }
+
+  public void addPublisher(Publisher publisher) throws SQLException {
+      publisher.addPublisher();
+  }
 }

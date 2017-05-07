@@ -7,8 +7,9 @@ import model.*;
 
 public class Controller {
   public static Statement stmt;
-  private  Connection con;
-  private User user ;
+  private Connection con;
+  private User user;
+
   public Controller() {
     startController();
   }
@@ -34,18 +35,19 @@ public class Controller {
       // View.showError(e.getMessage());
     }
   }
-// if user not found ( wrong password or user name ) return null
+
+  // if user not found ( wrong password or user name ) return null
   public User login(String name, String password) {
-    String query = "select * from user"
-        + "WHERE name  = " + name + " and password = "+  password;
+    String query = "select * from user" + "WHERE name  = " + name
+        + " and password = " + password;
     try {
       User us = null;
-      ResultSet rs =Controller.stmt.executeQuery(query); 
-      if (rs.next()){
+      ResultSet rs = Controller.stmt.executeQuery(query);
+      if (rs.next()) {
         boolean isManager = rs.getBoolean("isManager");
-        if(isManager){
+        if (isManager) {
           us = new Manager();
-        }else{
+        } else {
           us = new User();
         }
         us.setEmail(rs.getString("Email"));
@@ -64,67 +66,62 @@ public class Controller {
     return null;
   }
 
-  public void signup(User user) {
+  public boolean signup(User user) {
     String query = new String();
-    if(user.getShippingAddress() != null && user.getPhoneNumber() != null){
+    if (user.getShippingAddress() != null && user.getPhoneNumber() != null) {
       query = "Insert into user (name,password,Lname,Fname"
-          + ",Email,phoneNumber,shippingAddress)"
-          + " values ( " + user.getUserName() + " , " 
-        +user.getPassword() + " , " 
-        +user.getLastName() + " , " 
-        +user.getFirstName() + " , " 
-        +user.getEmail() + " , " 
-        +user.getPhoneNumber() + " , " 
-        +user.getShippingAddress() + " ) "; 
-    }else if(user.getShippingAddress() == null && user.getPhoneNumber() == null){
+          + ",Email,phoneNumber,shippingAddress)" + " values ( "
+          + user.getUserName() + " , " + user.getPassword() + " , "
+          + user.getLastName() + " , " + user.getFirstName() + " , "
+          + user.getEmail() + " , " + user.getPhoneNumber() + " , "
+          + user.getShippingAddress() + " ) ";
+    } else if (user.getShippingAddress() == null
+        && user.getPhoneNumber() == null) {
+      query = "Insert into user (name,password,Lname,Fname" + ",Email)"
+          + " values ( " + user.getUserName() + " , " + user.getPassword()
+          + " , " + user.getLastName() + " , " + user.getFirstName() + " , "
+          + user.getEmail() + " ) ";
+    } else if (user.getShippingAddress() == null) {
       query = "Insert into user (name,password,Lname,Fname"
-          + ",Email)"
-          + " values ( " + user.getUserName() + " , " 
-        +user.getPassword() + " , " 
-        +user.getLastName() + " , " 
-        +user.getFirstName() + " , " 
-        +user.getEmail() + " ) "; 
-    }else if(user.getShippingAddress() == null){
+          + ",Email,phoneNumber)" + " values ( " + user.getUserName() + " , "
+          + user.getPassword() + " , " + user.getLastName() + " , "
+          + user.getFirstName() + " , " + user.getEmail() + " , "
+          + user.getPhoneNumber() + " ) ";
+    } else {
       query = "Insert into user (name,password,Lname,Fname"
-          + ",Email,phoneNumber)"
-          + " values ( " + user.getUserName() + " , " 
-        +user.getPassword() + " , " 
-        +user.getLastName() + " , " 
-        +user.getFirstName() + " , " 
-        +user.getEmail() + " , " 
-        +user.getPhoneNumber() + " ) "; 
-    }else{
-      query = "Insert into user (name,password,Lname,Fname"
-          + ",Email,shippingAddress)"
-          + " values ( " + user.getUserName() + " , " 
-        +user.getPassword() + " , " 
-        +user.getLastName() + " , " 
-        +user.getFirstName() + " , " 
-        +user.getEmail() + " , " 
-        +user.getShippingAddress() + " ) "; 
+          + ",Email,shippingAddress)" + " values ( " + user.getUserName()
+          + " , " + user.getPassword() + " , " + user.getLastName() + " , "
+          + user.getFirstName() + " , " + user.getEmail() + " , "
+          + user.getShippingAddress() + " ) ";
     }
     try {
       Controller.stmt.executeUpdate(query);
     } catch (SQLException e) {
       // View.showError(e.getMessage());
-    }  
+      return false;
+    }
+    return true;
 
   }
-  // ----------------------------------------------- user --------------------------------------------
-  public void editInformation(User us) {
-      try {
-        us.editInformation();
-        this.user = us;
-      } catch (SQLException e) {
-        // View.showError(e.getMessage());
-      }
-    }  
-  
+
+  // ----------------------------------------------- user
+  // --------------------------------------------
+  public boolean editInformation(User us) {
+    try {
+      us.editInformation();
+      this.user = us;
+    } catch (SQLException e) {
+      // View.showError(e.getMessage());
+      return false;
+    }
+    return true;
+  }
+
   public ArrayList<Book> searchBook(String attrubite, String value) {
     try {
-      ResultSet rs = (this.user).searchBook(attrubite,value);
+      ResultSet rs = (this.user).searchBook(attrubite, value);
       ArrayList<Book> books = new ArrayList<>();
-      while (rs.next()){
+      while (rs.next()) {
         Book book = new Book();
         book.setCategory(rs.getString("category"));
         book.setISBN(rs.getInt("ISBN"));
@@ -142,124 +139,134 @@ public class Controller {
     }
     return null;
   }
-  
-  public void checkout() {
+
+  public boolean checkout() {
     try {
       this.con.setAutoCommit(false);
-    } catch (SQLException e) {
-      // View.showError(e.getMessage());
-
-    }
-    
-    try {
       this.user.checkOut();
       this.con.commit();
     } catch (SQLException e1) {
-      
-      // View.showError(e.getMessage());
       try {
         this.con.rollback();
+        return false;
       } catch (SQLException e) {
         // View.showError(e.getMessage());
+        return false;
+      }
+    } finally {
+
+      try {
+        this.con.setAutoCommit(true);
+      } catch (SQLException e) {
+        // View.showError(e.getMessage());
+        return false;
       }
     }
-    
-    
-    try {
-      this.con.setAutoCommit(true);
-    } catch (SQLException e) {
-      // View.showError(e.getMessage());
+    return true;
 
+  }
+
+  // -----------------------------------manager--------------------------
+  public boolean addBook(Book book) {
+    if (user instanceof Manager) {
+      try {
+        ((Manager) this.user).addBook(book);
+      } catch (SQLException e) {
+        // View.showError(e.getMessage());
+        return false;
+      }
+    } else {
+      // View.showError("NOT ALLOWED");
+      return false;
     }
+    return true;
+  }
+
+  public boolean modifyBook(Book book) {
+    if (user instanceof Manager) {
+      try {
+        ((Manager) this.user).modifyBook(book);
+      } catch (SQLException e) {
+        // View.showError(e.getMessage());
+        return false;
+      }
+    } else {
+      // View.showError("NOT ALLOWED");
+      return false;
+    }
+    return true;
+  }
+
+  public boolean placeOrder(Order order) {
+    if (user instanceof Manager) {
+      try {
+        ((Manager) this.user).placeOrder(order);
+      } catch (SQLException e) {
+        // View.showError(e.getMessage());
+        return false;
+      }
+    } else {
+      // View.showError("NOT ALLOWED");
+      return false;
+    }
+    return true;
+  }
+
+  public boolean confirmOrder(Order order) {
+    if (user instanceof Manager) {
+      try {
+        ((Manager) this.user).confirmOrder(order);
+      } catch (SQLException e) {
+        // View.showError(e.getMessage());
+        return false;
+      }
+    } else {
+      // View.showError("NOT ALLOWED");
+      return false;
+    }
+    return true;
+  }
+
+  public boolean promoteCustomer(User user) {
+    if (user instanceof Manager) {
+      try {
+        ((Manager) this.user).promoteCustomer(user);
+      } catch (SQLException e) {
+        // View.showError(e.getMessage());
+        return false;
+      }
+    } else {
+      // View.showError("NOT ALLOWED");
+      return false;
+    }
+    return true;
 
   }
 
-  //-----------------------------------manager--------------------------
-  public void addBook(Book book ){
-    if(user instanceof Manager){
-      try {
-        ((Manager)this.user).addBook(book);
-      } catch (SQLException e) {
-        // View.showError(e.getMessage());
-      }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
-  }
-  
-  public void modifyBook(Book book ){
-    if(user instanceof Manager){
-      try {
-        ((Manager)this.user).modifyBook(book);
-      } catch (SQLException e) {
-        // View.showError(e.getMessage());
-      }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
-  }
-
-  public void placeOrder(Order order){
-    if(user instanceof Manager){
-      try {
-        ((Manager)this.user).placeOrder(order);
-      } catch (SQLException e) {
-        // View.showError(e.getMessage());
-      }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
-  }
-  
-  public void confirmOrder(Order order){
-    if(user instanceof Manager){
-      try {
-        ((Manager)this.user).confirmOrder(order);
-      } catch (SQLException e) {
-        // View.showError(e.getMessage());
-      }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
-  }
-  
-  public void promoteCustomer(User user){
-    if(user instanceof Manager){
-      try {
-        ((Manager)this.user).promoteCustomer(user);
-      } catch (SQLException e) {
-        // View.showError(e.getMessage());
-      }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
-  }
-  
   public Integer getTotalSales() {
-    if(user instanceof Manager){
+    if (user instanceof Manager) {
       try {
-        ResultSet rs = ((Manager)this.user).getTotalSales();
-        if (rs.next()){
+        ResultSet rs = ((Manager) this.user).getTotalSales();
+        if (rs.next()) {
           return rs.getInt(1);
-        }
-        else {
+        } else {
           return 0;
         }
       } catch (SQLException e) {
         // View.showError(e.getMessage());
       }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
+    } else {
+      // View.showError("NOT ALLOWED");
+    }
     return null;
   }
-  
-  public ArrayList<User> getTopFiveCustomers(){
-    if(user instanceof Manager){
+
+  public ArrayList<User> getTopFiveCustomers() {
+    if (user instanceof Manager) {
       try {
-        ResultSet rs = ((Manager)this.user).getTopFiveCustomers();
+        ResultSet rs = ((Manager) this.user).getTopFiveCustomers();
         ArrayList<User> users = new ArrayList<>();
-        while (rs.next()){
+        while (rs.next()) {
           User us = new User();
           us.setSalesNumber(rs.getInt("sum(salesNumber)"));
           us.setUserName(rs.getString("userName"));
@@ -269,18 +276,18 @@ public class Controller {
       } catch (SQLException e) {
         // View.showError(e.getMessage());
       }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
+    } else {
+      // View.showError("NOT ALLOWED");
+    }
     return null;
   }
-  
-  public ArrayList<Book> getTopTenBooks(){
-    if(user instanceof Manager){
+
+  public ArrayList<Book> getTopTenBooks() {
+    if (user instanceof Manager) {
       try {
-        ResultSet rs = ((Manager)this.user).getTopTenBooks();
+        ResultSet rs = ((Manager) this.user).getTopTenBooks();
         ArrayList<Book> books = new ArrayList<>();
-        while (rs.next()){
+        while (rs.next()) {
           Book book = new Book();
           book.setISBN(rs.getInt("ISBN"));
           book.setSalesNumber(rs.getInt("sum(salesNumber)"));
@@ -289,23 +296,23 @@ public class Controller {
       } catch (SQLException e) {
         // View.showError(e.getMessage());
       }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
+    } else {
+      // View.showError("NOT ALLOWED");
+    }
     return null;
   }
-  
-  public ArrayList<User> getAllCustomers(){
-    if(user instanceof Manager){
+
+  public ArrayList<User> getAllCustomers() {
+    if (user instanceof Manager) {
       try {
-        ResultSet rs = ((Manager)this.user).getAllCustomers();
+        ResultSet rs = ((Manager) this.user).getAllCustomers();
         ArrayList<User> users = new ArrayList<>();
-        while (rs.next()){
+        while (rs.next()) {
           boolean isManager = rs.getBoolean("isManager");
-          User us ;
-          if(isManager){
+          User us;
+          if (isManager) {
             us = new Manager();
-          }else{
+          } else {
             us = new User();
           }
           us.setEmail(rs.getString("Email"));
@@ -321,24 +328,47 @@ public class Controller {
       } catch (SQLException e) {
         // View.showError(e.getMessage());
       }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
+    } else {
+      // View.showError("NOT ALLOWED");
+    }
     return null;
   }
-  
-  public void promote(User us){
-    if(user instanceof Manager){
+
+  public boolean promote(User us) {
+    if (user instanceof Manager) {
       try {
-       us.promote();
-        
+        us.promote();
+
       } catch (SQLException e) {
         // View.showError(e.getMessage());
+        return false;
+
       }
-    }else{
-   // View.showError("NOT ALLOWED");
-    }    
+    } else {
+      // View.showError("NOT ALLOWED");
+      return false;
+
+    }
+    return true;
+
   }
-  
-  
+
+  public boolean addPublisher(Publisher publisher) {
+    if (user instanceof Manager) {
+      try {
+        ((Manager) this.user).addPublisher(publisher);
+
+      } catch (SQLException e) {
+        // View.showError(e.getMessage());
+        return false;
+
+      }
+    } else {
+      // View.showError("NOT ALLOWED");
+      return false;
+
+    }
+    return true;
+
+  }
 }

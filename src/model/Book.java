@@ -98,7 +98,13 @@ public class Book {
     if(this.year != null){
       this.modify();
     }
-    Controller.stmt.executeUpdate(query);  
+    
+    Controller.stmt.executeUpdate(query); 
+    for(String author : this.authors){
+      query = "Insert into BookAuthor (ISBN,authorName)"
+          + "Value ( "+ this.ISBN+ " , " + author +" )";
+      Controller.stmt.executeUpdate(query); 
+    }
     
   }
   public void modify() throws SQLException{

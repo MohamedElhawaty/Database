@@ -1,6 +1,9 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.*;
+
+import controller.Controller;
 
 public class Publisher {
   private String name;
@@ -33,14 +36,33 @@ public class Publisher {
   
   public Publisher(String name){
     this.name = name;
-    addresses = new ArrayList<String>();
-    phoneNumbers = new ArrayList<String>();
+    this.addresses = new ArrayList<String>();
+    this.phoneNumbers = new ArrayList<String>();
   }
 
   public void addPhoneNumber(String phone){
-    phoneNumbers.add(phone);
+    this.phoneNumbers.add(phone);
   }
   public void addAddress(String address){
-    addresses.add(address);
+    this.addresses.add(address);
   }
+  public void addPublisher() throws SQLException{
+    String query = "Insert into publisher (name)"
+        + "Value ( "+ this.name+" )";
+    Controller.stmt.executeUpdate(query); 
+
+    for(String phone : this.phoneNumbers){
+       query = "Insert into publisherPhone (name,phone)"
+          + "Value ( "+ this.name+ " , " + phone +" )";
+      Controller.stmt.executeUpdate(query); 
+    }
+    for(String address : addresses){
+      query = "Insert into publisherAddress (name,address)"
+         + "Value ( "+ this.name+ " , " + address +" )";
+     Controller.stmt.executeUpdate(query); 
+   }
+    Controller.stmt.executeUpdate(query); 
+  }
+  
+  
 }

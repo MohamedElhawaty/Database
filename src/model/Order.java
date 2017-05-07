@@ -26,11 +26,7 @@ public class Order {
   public void setQuantity(int quantity) {
     this.quantity = quantity;
   }
-  public Order(int orderId, int iSBN, int quantity) {
-    this.orderId = orderId;
-    this.ISBN = iSBN;
-    this.quantity = quantity;
-  }
+ 
   public void addToOrderTable()  throws SQLException{
     String query ;
     query = "Insert into `order` (ISBN,orderId,quantity)" 
