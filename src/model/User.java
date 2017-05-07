@@ -47,7 +47,7 @@ public class User {
   
   private ResultSet searchBookByAuthor(String author) throws SQLException{
     String query = "Select * from book where ISBN = ( select "
-        + "ISBN from BOOK_Author where author_name = " + author + " )";
+        + "ISBN from bookAuthor where authorName = " + author + " )";
     return Controller.stmt.executeQuery(query); 
   }
   
@@ -66,11 +66,11 @@ public class User {
       int tobuy = this.shoppingCart.get(book);
       int numberOfCopies = book.getNumberOfCopies()-tobuy;
       String query = "Update book" 
-          +" SET  number_of_copies = " + numberOfCopies ;
+          +" SET  numberOfCopies = " + numberOfCopies ;
       query  += " WHERE ISBN =  " + book.getISBN();
       Controller.stmt.executeUpdate(query); 
-      String add = "Insert into sales (ISBN,user_name,selling_date,"
-          + "selling_time,sales_number)"
+      String add = "Insert into sales (ISBN,userName,sellingDate,"
+          + "sellingTime,salesNumber)"
           + "values (" + book.getISBN()+ " ,"
           + " " + this.userName + " ,"
           + " current_date() ,  current_time() , "+ tobuy + " ) ";

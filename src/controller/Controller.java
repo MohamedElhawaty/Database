@@ -27,7 +27,7 @@ public class Controller {
 
     // delete dates longer than 3 months
     String query = "delete from `sales`"
-        + "WHERE selling_date  < (current_Date() - Interval 3 Month)";
+        + "WHERE sellingDate  < (current_Date() - Interval 3 Month)";
     try {
       Controller.stmt.executeUpdate(query);
     } catch (SQLException e) {
@@ -128,12 +128,12 @@ public class Controller {
         Book book = new Book();
         book.setCategory(rs.getString("category"));
         book.setISBN(rs.getInt("ISBN"));
-        book.setNumberOfCopies(rs.getInt("number_of_copies"));
-        book.setPrice(rs.getInt("selling_price"));
-        book.setPublisherName(rs.getString("publisher_name"));
+        book.setNumberOfCopies(rs.getInt("numberOfCopies"));
+        book.setPrice(rs.getInt("price"));
+        book.setPublisherName(rs.getString("publisherName"));
         book.setThreshold(rs.getInt("threshold"));
         book.setTitle(rs.getString("title"));
-        book.setYear(rs.getString("publication_year"));
+        book.setYear(rs.getString("year"));
         books.add(book);
       }
       return books;
@@ -261,8 +261,8 @@ public class Controller {
         ArrayList<User> users = new ArrayList<>();
         while (rs.next()){
           User us = new User();
-          us.setSalesNumber(rs.getInt("sum(sales_number)"));
-          us.setUserName(rs.getString("user_name"));
+          us.setSalesNumber(rs.getInt("sum(salesNumber)"));
+          us.setUserName(rs.getString("userName"));
           users.add(us);
         }
         return users;
@@ -283,7 +283,7 @@ public class Controller {
         while (rs.next()){
           Book book = new Book();
           book.setISBN(rs.getInt("ISBN"));
-          book.setSalesNumber(rs.getInt("sum(sales_number)"));
+          book.setSalesNumber(rs.getInt("sum(salesNumber)"));
         }
         return books;
       } catch (SQLException e) {

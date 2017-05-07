@@ -31,25 +31,25 @@ public class Manager extends User {
   }
 
   public ResultSet getTotalSales() throws SQLException {
-    String query = "Select sum(sales_number) from sales where  "
-        + "selling_date between (current_Date() - Interval 1 Month) "
+    String query = "Select sum(salesNumber) from sales where  "
+        + "sellingDate between (current_Date() - Interval 1 Month) "
         + "And Current_Date()";
     return Controller.stmt.executeQuery(query);
 
   }
 
   public ResultSet getTopFiveCustomers() throws SQLException {
-    String query = "Select user_name , sum(sales_number) from sales"
-        + "group by user_name "
-        + "order by sales_number DESC "
+    String query = "Select userName , sum(salesNumber) from sales"
+        + "group by userName "
+        + "order by salesNumber DESC "
         + "limit 5";
     return Controller.stmt.executeQuery(query);
   }
 
   public ResultSet getTopTenBooks() throws SQLException {
-    String query = "Select ISBN , sum(sales_number) from sales"
+    String query = "Select ISBN , sum(salesNumber) from sales"
         + "group by ISBN "
-        + "order by sales_number DESC "
+        + "order by salesNumber DESC "
         + "limit 10";
     return Controller.stmt.executeQuery(query);
   }

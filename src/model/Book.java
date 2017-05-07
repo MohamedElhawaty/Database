@@ -69,8 +69,8 @@ public class Book {
   public int getNumberOfCopies() {
     return numberOfCopies;
   }
-  public void setNumberOfCopies(int number_of_copies) {
-    this.numberOfCopies = number_of_copies;
+  public void setNumberOfCopies(int numberOfCopies) {
+    this.numberOfCopies = numberOfCopies;
   }
   public int getThreshold() {
     return threshold;
@@ -86,8 +86,8 @@ public class Book {
   }
   public void addToDatabase() throws SQLException {
     String query ;
-    query = "Insert into Book (ISBN,title,publisher_name,category"
-          + ",number_of_copies,selling_price,threshold)"
+    query = "Insert into Book (ISBN,title,publisherName,category"
+          + ",numberOfCopies,price,threshold)"
           + " values ( " + this.ISBN + " , " 
         +this.title + " , " 
         +this.publisherName + " , " 
@@ -103,13 +103,13 @@ public class Book {
   }
   public void modify() throws SQLException{
     String query = "Update book SET title = " + this.title + " ,"
-        +" SET  publisher_name = " + this.publisherName + " ,"
+        +" SET  publisherName = " + this.publisherName + " ,"
         +" SET  category = " + this.category + " ,"
-        +" SET  number_of_copies = " + this.numberOfCopies + " ,"
-        +" SET  selling_price = " + this.price + " ,"
+        +" SET  numberOfCopies = " + this.numberOfCopies + " ,"
+        +" SET  price = " + this.price + " ,"
         +" SET threshold = " + this.threshold ;        
     if(this.year != null){
-      query += " , SET publication_year = " + this.year ;
+      query += " , SET year = " + this.year ;
     }
     query  += " WHERE ISBN =  " + this.ISBN;
     Controller.stmt.executeUpdate(query); 
