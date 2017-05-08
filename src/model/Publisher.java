@@ -58,15 +58,18 @@ public class Publisher {
 
     for(String phone : this.phoneNumbers){
        query = "Insert into publisherPhone (name,phone)"
-          + "Value ( "+ this.name+ " , " + phone +" )";
+          + "Value ( "
+           +"\'"+ this.name+"\'"+ " , " 
+          + "\'"+phone +"\'"+" )";
       Controller.stmt.executeUpdate(query); 
     }
     for(String address : addresses){
       query = "Insert into publisherAddress (name,address)"
-         + "Value ( "+ this.name+ " , " + address +" )";
+         + "Value ( "
+          +"\'"+ this.name+ "\'"+" , " 
+         +"\'"+ address +"\'"+" )";
      Controller.stmt.executeUpdate(query); 
    }
-    Controller.stmt.executeUpdate(query); 
   }
   
   

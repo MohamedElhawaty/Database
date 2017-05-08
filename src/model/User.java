@@ -27,17 +27,22 @@ public class User {
  
   
   public void editInformation() throws SQLException{
-    String query = "Update user SET password = " + this.password +" ,"
-        +" SET firstName = " + this.firstName + " ,"
-        +" SET lastName = " + this.lastName + " ,"
-        +" SET email = " + this.email ;
+    String query = "Update user SET"
+        + " password = " 
+        +"\'"+ this.password +"\'"+" ,"
+        +" SET firstName = " 
+        +"\'"+ this.firstName +"\'"+ " ,"
+        +" SET lastName = " 
+        +"\'"+ this.lastName + " ,"
+        +" SET email = " 
+        +"\'"+ this.email +"\'";
     if(this.phoneNumber != null){
-       query  += " , SET phoneNumber = " + this.phoneNumber ;
+       query  += " , SET phoneNumber = " + "\'"+this.phoneNumber+"\'" ;
     }
     if(this.shippingAddress != null){
-      query  += " , SET shippingAddress = " + this.shippingAddress ;
+      query  += " , SET shippingAddress = " +"\'"+ this.shippingAddress +"\'";
     }
-    query +=" WHERE name =  " + this.userName;
+    query +=" WHERE name =  " + "\'"+this.userName+"\'";
     Controller.stmt.executeUpdate(query);  
   }
   
@@ -45,13 +50,20 @@ public class User {
     if(attrubite.equals("author ")){
       return searchBookByAuthor(value);
     }
-    String query = "Select * from Book where " + attrubite + " = " + value;
+    String query;
+    if(attrubite.equals("ISBN") ||attrubite.equals("price") || attrubite.equals("numberOfCopies") ||  attrubite.equals("threshold")){
+      query= "Select * from Book where " + attrubite + " = " + value;
+    }else{
+      query= "Select * from Book where " + attrubite + " = " +"\'" +value+"\'";
+
+    }
     return Controller.stmt.executeQuery(query); 
   }
   
   private ResultSet searchBookByAuthor(String author) throws SQLException{
     String query = "Select * from book where ISBN = ( select "
-        + "ISBN from bookAuthor where authorName = " + author + " )";
+        + "ISBN from bookAuthor where authorName = " 
+        +"\'"+ author +"\'"+ " )";
     return Controller.stmt.executeQuery(query); 
   }
   
@@ -89,7 +101,8 @@ public class User {
       String add = "Insert into sales (ISBN,userName,sellingDate,"
           + "sellingTime,salesNumber,price)"
           + "values (" + book.getISBN()+ " ,"
-          + " " + this.userName + " ,"
+          + " "
+          +"\'"+this.userName +"\'"+ " ,"
           + " current_date() ,  current_time() , "+ tobuy + " , " + tobuy * book.getPrice() + " ) ";
       Controller.stmt.executeUpdate(add); 
     }
@@ -149,7 +162,7 @@ public class User {
   
   public void promote() throws SQLException{
     String query = "Update user SET isManager = true";
-    query +=" WHERE name =  " + this.userName;
+    query +=" WHERE name =  " + "\'"+this.userName+"\'";
     Controller.stmt.executeUpdate(query);  
   }
   public int getSalesNumber() {

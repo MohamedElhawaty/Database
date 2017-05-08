@@ -88,13 +88,14 @@ public class Book {
     String query ;
     query = "Insert into Book (ISBN,title,publisherName,category"
           + ",numberOfCopies,price,threshold)"
-          + " values ( " + this.ISBN + " , " 
-        +this.title + " , " 
-        +this.publisherName + " , " 
-        +this.category + " , " 
-        +this.numberOfCopies + " , " 
-        +this.price + " , " 
-        +this.threshold + " ) "; 
+          + " values ( " 
+          +"\'"+ this.ISBN +"\'"+ " , " 
+          +"\'"+this.title +"\'"+ " , " 
+          +"\'"+this.publisherName +"\'"+ " , " 
+          +"\'"+this.category +"\'"+ " , " 
+          +this.numberOfCopies + " , " 
+          +this.price + " , " 
+          +this.threshold + " ) "; 
     if(this.year != null){
       this.modify();
     }
@@ -102,20 +103,20 @@ public class Book {
     Controller.stmt.executeUpdate(query); 
     for(String author : this.authors){
       query = "Insert into BookAuthor (ISBN,authorName)"
-          + "Value ( "+ this.ISBN+ " , " + author +" )";
+          + "Value ( "+ this.ISBN+ " , " +"\'"+ author +"\'"+" )";
       Controller.stmt.executeUpdate(query); 
     }
     
   }
   public void modify() throws SQLException{
-    String query = "Update book SET title = " + this.title + " ,"
-        +" SET  publisherName = " + this.publisherName + " ,"
-        +" SET  category = " + this.category + " ,"
+    String query = "Update book SET title = " +"\'"+ this.title +"\'"+ " ,"
+        +" SET  publisherName = " +"\'"+ this.publisherName +"\'"+ " ,"
+        +" SET  category = " +"\'"+ this.category +"\'"+ " ,"
         +" SET  numberOfCopies = " + this.numberOfCopies + " ,"
         +" SET  price = " + this.price + " ,"
         +" SET threshold = " + this.threshold ;        
     if(this.year != null){
-      query += " , SET year = " + this.year ;
+      query += " , SET year = " + "\'"+this.year+"\'" ;
     }
     query  += " WHERE ISBN =  " + this.ISBN;
     Controller.stmt.executeUpdate(query); 

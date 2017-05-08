@@ -46,8 +46,8 @@ public class Controller {
 
   // if user not found ( wrong password or user name ) return null
   public User login(String name, String password) {
-    String query = "select * from user" + "WHERE name  = " + name
-        + " and password = " + password;
+    String query = "select * from user" + "WHERE name  = " 
+        +"\'"+ name+"\'"+" and password = "+"\'"+  password+"\'";
     try {
       User us = null;
       ResultSet rs = Controller.stmt.executeQuery(query);
@@ -78,29 +78,42 @@ public class Controller {
     String query = new String();
     if (user.getShippingAddress() != null && user.getPhoneNumber() != null) {
       query = "Insert into user (name,password,Lname,Fname"
-          + ",Email,phoneNumber,shippingAddress)" + " values ( "
-          + user.getUserName() + " , " + user.getPassword() + " , "
-          + user.getLastName() + " , " + user.getFirstName() + " , "
-          + user.getEmail() + " , " + user.getPhoneNumber() + " , "
-          + user.getShippingAddress() + " ) ";
+          + ",Email,phoneNumber,shippingAddress)" + " "
+          + "values ( "
+          + "\'"+ user.getUserName() +"\'"+  " ,"
+          + "\'"+ user.getPassword() +"\'"+ " , "
+          + "\'"+ user.getLastName() +"\'"+  " , "
+          + "\'"+ user.getFirstName()+"\'"+ " , "
+          + "\'"+ user.getEmail()    +"\'" + " , " 
+          + "\'"+ user.getPhoneNumber() +"\'"+  " , "
+          + "\'"+ user.getShippingAddress() +"\'"+  " ) ";
     } else if (user.getShippingAddress() == null
         && user.getPhoneNumber() == null) {
       query = "Insert into user (name,password,Lname,Fname" + ",Email)"
-          + " values ( " + user.getUserName() + " , " + user.getPassword()
-          + " , " + user.getLastName() + " , " + user.getFirstName() + " , "
-          + user.getEmail() + " ) ";
+          + " values ( " 
+          + "\'"+user.getUserName() +"\'"+ " , "
+          + "\'"+user.getPassword() +"\'"+ " , " 
+          + "\'"+user.getLastName() +"\'"+ " , " 
+          + "\'"+user.getFirstName()+"\'"+ " , "
+          + "\'"+user.getEmail() +"\'"+ " ) ";
     } else if (user.getShippingAddress() == null) {
       query = "Insert into user (name,password,Lname,Fname"
-          + ",Email,phoneNumber)" + " values ( " + user.getUserName() + " , "
-          + user.getPassword() + " , " + user.getLastName() + " , "
-          + user.getFirstName() + " , " + user.getEmail() + " , "
-          + user.getPhoneNumber() + " ) ";
+          + ",Email,phoneNumber)" + " values ( " 
+          +"\'"+ user.getUserName() +"\'"+ " , "
+          +"\'"+ user.getPassword() +"\'"+ " , "
+          +"\'"+ user.getLastName() +"\'"+ " , "
+          +"\'"+ user.getFirstName() +"\'"+ " , "
+          +"\'"+user.getEmail() +"\'"+ " , "
+          +"\'"+ user.getPhoneNumber() + "\'"+" ) ";
     } else {
       query = "Insert into user (name,password,Lname,Fname"
-          + ",Email,shippingAddress)" + " values ( " + user.getUserName()
-          + " , " + user.getPassword() + " , " + user.getLastName() + " , "
-          + user.getFirstName() + " , " + user.getEmail() + " , "
-          + user.getShippingAddress() + " ) ";
+          + ",Email,shippingAddress)" + " values ( " 
+          +"\'"+ user.getUserName() +"\'"+ " , "
+          +"\'"+ user.getPassword() +"\'"+ " , " 
+          +"\'"+ user.getLastName() +"\'"+ " , "
+          +"\'"+ user.getFirstName() +"\'"+ " , " 
+          +"\'"+ user.getEmail() +"\'"+ " , "
+          +"\'"+ user.getShippingAddress() + "\'"+" ) ";
     }
     try {
       Controller.stmt.executeUpdate(query);
