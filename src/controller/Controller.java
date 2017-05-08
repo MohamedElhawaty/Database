@@ -201,7 +201,7 @@ public class Controller {
       try {
         ((Manager) this.user).addBook(book);
       } catch (SQLException e) {
-        e.printStackTrace();
+        //e.printStackTrace();
         JOptionPane.showMessageDialog(null, e.getMessage());
         return false;
       }

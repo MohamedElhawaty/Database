@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -43,7 +46,10 @@ public class BookView extends JFrame implements WindowListener{
 		this.create = create;
 		
 		getContentPane().setLayout(null);
-		
+	  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    this.setSize(new Dimension(500,500));
+    this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    this.setTitle("Book View");
 		int x1 = 10 , x2  = 10+200+10 , y = 10 , w = 200 , h = 35 ;
 		
 		JLabel ISBNLabel = new JLabel("ISBN: ");
@@ -184,15 +190,19 @@ public class BookView extends JFrame implements WindowListener{
 			if(create){
 				if(controller.addBook(temp)){
 					book = temp;
+					JOptionPane.showMessageDialog(null, "Book Added");
 				}
-				update(book);
+				
+			//	update(book);
 				//if faild update by book else update by temp & book = temp
 			}else{
 				/// call edit book
 				if(controller.modifyBook(temp)){
 					book = temp;
+	         JOptionPane.showMessageDialog(null, "Book Modified");
+
 				}
-				update(book);
+			//	update(book);
 				//if faild update by book else update by temp & book = temp
 			}
 		}

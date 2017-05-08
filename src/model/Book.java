@@ -96,11 +96,11 @@ public class Book {
           +this.numberOfCopies + " , " 
           +this.price + " , " 
           +this.threshold + " ) "; 
+   
+    Controller.stmt.executeUpdate(query); 
     if(this.year != null){
       this.modify();
     }
-    
-    Controller.stmt.executeUpdate(query); 
     for(String author : this.authors){
       query = "Insert into BookAuthor (ISBN,authorName)"
           + "Value ( "+ this.ISBN+ " , " +"\'"+ author +"\'"+" )";
@@ -119,7 +119,10 @@ public class Book {
       query += " ,year = " + "\""+this.year+"\"" ;
     }
     query  += " WHERE ISBN =  " + this.ISBN;
+    System.out.println(query);
+
     Controller.stmt.executeUpdate(query); 
+    
   }
   @Override
   public int hashCode()

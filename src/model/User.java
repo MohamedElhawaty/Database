@@ -33,7 +33,7 @@ public class User {
         +"firstName = " 
         +"\'"+ this.firstName +"\'"+ " ,"
         +"lastName = " 
-        +"\'"+ this.lastName + " ,"
+        +"\'"+ this.lastName + "\' ,"
         +"email = " 
         +"\'"+ this.email +"\'";
     if(this.phoneNumber != null){
