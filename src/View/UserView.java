@@ -159,7 +159,6 @@ public class UserView extends JFrame implements WindowListener{
 				if(controller.signup(temp)){
 					user = temp;
           JOptionPane.showMessageDialog(null, "Signed Up" );
-
 	        frame.dispose();
 				}
 				update(user);

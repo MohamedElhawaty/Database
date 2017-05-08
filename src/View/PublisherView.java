@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -31,6 +32,7 @@ public class PublisherView extends JFrame {
 	private JButton saveButton;
 	private Publisher publisher;
 	private boolean create;
+	private JFrame frame = this;
 	
 	public PublisherView(Publisher publisher, boolean create){
 		
@@ -103,6 +105,8 @@ public class PublisherView extends JFrame {
 				//if faild update by book else update by temp & book = temp
 				if(controller.addPublisher(temp)){
 					publisher = temp;
+					JOptionPane.showMessageDialog(null, "Publisher Added" );
+					frame.dispose();
 				}
 				update(publisher);
 			}else{
