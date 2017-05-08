@@ -2,6 +2,7 @@ package View;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controller.Controller;
@@ -26,7 +27,7 @@ public class Login extends JFrame implements WindowListener{
 		getContentPane().add(nameField);
 		nameField.setColumns(10);
 		
-		passwordField = new JTextField();
+		passwordField = new JPasswordField();
 		passwordField.setBounds(75, 85, 246, 19);
 		getContentPane().add(passwordField);
 		passwordField.setColumns(10);

@@ -109,14 +109,14 @@ public class Book {
     
   }
   public void modify() throws SQLException{
-    String query = "Update book SET title = " +"\'"+ this.title +"\'"+ " ,"
-        +" SET  publisherName = " +"\'"+ this.publisherName +"\'"+ " ,"
-        +" SET  category = " +"\'"+ this.category +"\'"+ " ,"
-        +" SET  numberOfCopies = " + this.numberOfCopies + " ,"
-        +" SET  price = " + this.price + " ,"
-        +" SET threshold = " + this.threshold ;        
+    String query = "Update book SET title = " +"\""+ this.title +"\""+ " ,"
+        +"publisherName = " +"\""+ this.publisherName +"\""+ " ,"
+        +"category = " +"\""+ this.category +"\""+ " ,"
+        +"numberOfCopies = " + this.numberOfCopies + " ,"
+        +"price = " + this.price + " ,"
+        +"threshold = " + this.threshold ;        
     if(this.year != null){
-      query += " , SET year = " + "\'"+this.year+"\'" ;
+      query += " ,year = " + "\""+this.year+"\"" ;
     }
     query  += " WHERE ISBN =  " + this.ISBN;
     Controller.stmt.executeUpdate(query); 

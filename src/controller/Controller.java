@@ -3,6 +3,8 @@ package controller;
 import java.sql.*;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import model.*;
 
 public class Controller {
@@ -29,8 +31,7 @@ public class Controller {
       Controller.stmt = this.con.createStatement();
 
     } catch (Exception e) {
-      // View.showError(e.getMessage());
-      System.out.println(e.getMessage());
+      JOptionPane.showMessageDialog(null, e.getMessage());
 
     }
 
@@ -40,14 +41,15 @@ public class Controller {
     try {
       Controller.stmt.executeUpdate(query);
     } catch (SQLException e) {
-      // View.showError(e.getMessage());
+      JOptionPane.showMessageDialog(null, e.getMessage());
+
     }
   }
 
   // if user not found ( wrong password or user name ) return null
   public User login(String name, String password) {
-    String query = "select * from user" + "WHERE name  = " 
-        +"\'"+ name+"\'"+" and password = "+"\'"+  password+"\'";
+    String query = "select * from `user`" + "WHERE"
+        + " name  = " +" \'"+ name+"\' "+" and password = "+"\'"+  password+"\'";
     try {
       User us = null;
       ResultSet rs = Controller.stmt.executeQuery(query);
@@ -66,18 +68,24 @@ public class Controller {
         us.setShippingAddress(rs.getString("shippingAddress"));
         us.setUserName(rs.getString("name"));
       }
+      if(us == null){
+        JOptionPane.showMessageDialog(null, "Wrong UserName or Password");
+
+      }
       this.user = us;
       return us;
     } catch (SQLException e) {
-      // View.showError(e.getMessage());
+      JOptionPane.showMessageDialog(null, e.getMessage());
     }
+    JOptionPane.showMessageDialog(null, "Wrong UserName or Password");
+
     return null;
   }
 
   public boolean signup(User user) {
     String query = new String();
     if (user.getShippingAddress() != null && user.getPhoneNumber() != null) {
-      query = "Insert into user (name,password,Lname,Fname"
+      query = "Insert into `user` (name,password,Lname,Fname"
           + ",Email,phoneNumber,shippingAddress)" + " "
           + "values ( "
           + "\'"+ user.getUserName() +"\'"+  " ,"
@@ -89,7 +97,7 @@ public class Controller {
           + "\'"+ user.getShippingAddress() +"\'"+  " ) ";
     } else if (user.getShippingAddress() == null
         && user.getPhoneNumber() == null) {
-      query = "Insert into user (name,password,Lname,Fname" + ",Email)"
+      query = "Insert into `user` (name,password,Lname,Fname" + ",Email)"
           + " values ( " 
           + "\'"+user.getUserName() +"\'"+ " , "
           + "\'"+user.getPassword() +"\'"+ " , " 
@@ -97,7 +105,7 @@ public class Controller {
           + "\'"+user.getFirstName()+"\'"+ " , "
           + "\'"+user.getEmail() +"\'"+ " ) ";
     } else if (user.getShippingAddress() == null) {
-      query = "Insert into user (name,password,Lname,Fname"
+      query = "Insert into `user` (name,password,Lname,Fname"
           + ",Email,phoneNumber)" + " values ( " 
           +"\'"+ user.getUserName() +"\'"+ " , "
           +"\'"+ user.getPassword() +"\'"+ " , "
@@ -106,7 +114,7 @@ public class Controller {
           +"\'"+user.getEmail() +"\'"+ " , "
           +"\'"+ user.getPhoneNumber() + "\'"+" ) ";
     } else {
-      query = "Insert into user (name,password,Lname,Fname"
+      query = "Insert into `user` (name,password,Lname,Fname"
           + ",Email,shippingAddress)" + " values ( " 
           +"\'"+ user.getUserName() +"\'"+ " , "
           +"\'"+ user.getPassword() +"\'"+ " , " 
@@ -118,7 +126,7 @@ public class Controller {
     try {
       Controller.stmt.executeUpdate(query);
     } catch (SQLException e) {
-      // View.showError(e.getMessage());
+      JOptionPane.showMessageDialog(null, e.getMessage());
       return false;
     }
     return true;
@@ -132,7 +140,7 @@ public class Controller {
       us.editInformation();
       this.user = us;
     } catch (SQLException e) {
-      // View.showError(e.getMessage());
+      JOptionPane.showMessageDialog(null, e.getMessage());
       return false;
     }
     return true;
@@ -156,7 +164,7 @@ public class Controller {
       }
       return books;
     } catch (SQLException e) {
-      // View.showError(e.getMessage());
+      JOptionPane.showMessageDialog(null, e.getMessage());
     }
     return null;
   }
@@ -171,7 +179,7 @@ public class Controller {
         this.con.rollback();
         return false;
       } catch (SQLException e) {
-        // View.showError(e.getMessage());
+        JOptionPane.showMessageDialog(null, e.getMessage());
         return false;
       }
     } finally {
@@ -179,7 +187,7 @@ public class Controller {
       try {
         this.con.setAutoCommit(true);
       } catch (SQLException e) {
-        // View.showError(e.getMessage());
+        JOptionPane.showMessageDialog(null, e.getMessage());
         return false;
       }
     }
@@ -193,10 +201,14 @@ public class Controller {
       try {
         ((Manager) this.user).addBook(book);
       } catch (SQLException e) {
-        // View.showError(e.getMessage());
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, e.getMessage());
         return false;
       }
     } else {
+      
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
       return false;
     }
@@ -208,10 +220,12 @@ public class Controller {
       try {
         ((Manager) this.user).modifyBook(book);
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
         // View.showError(e.getMessage());
         return false;
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
       // View.showError("NOT ALLOWED");
       return false;
     }
@@ -223,10 +237,14 @@ public class Controller {
       try {
         ((Manager) this.user).placeOrder(order);
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
         return false;
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
       return false;
     }
@@ -238,10 +256,14 @@ public class Controller {
       try {
         ((Manager) this.user).confirmOrder(order);
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
         return false;
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
       return false;
     }
@@ -253,10 +275,14 @@ public class Controller {
       try {
         ((Manager) this.user).promoteCustomer(user);
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
         return false;
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
       return false;
     }
@@ -274,9 +300,13 @@ public class Controller {
           return 0.0;
          }
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
     }
     return null;
@@ -295,9 +325,13 @@ public class Controller {
         }
         return users;
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
     }
     return null;
@@ -315,9 +349,13 @@ public class Controller {
         }
         return books;
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
     }
     return null;
@@ -347,9 +385,13 @@ public class Controller {
         }
         return users;
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
     }
     return null;
@@ -361,11 +403,15 @@ public class Controller {
         us.promote();
 
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
         return false;
 
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
       return false;
 
@@ -380,11 +426,15 @@ public class Controller {
         ((Manager) this.user).addPublisher(publisher);
 
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
         return false;
 
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
       return false;
 
@@ -406,11 +456,15 @@ public class Controller {
           orders.add(o);
         }
       } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+
         // View.showError(e.getMessage());
         return null;
 
       }
     } else {
+      JOptionPane.showMessageDialog(null, "Unauthorized Access");
+
       // View.showError("NOT ALLOWED");
       return null;
 

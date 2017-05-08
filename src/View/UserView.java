@@ -8,6 +8,7 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import controller.Controller;
@@ -49,7 +50,7 @@ public class UserView extends JFrame implements WindowListener{
 		JLabel passwordLabel = new JLabel("Password: ");
 		passwordLabel.setBounds(x1, y, w, h);
 		getContentPane().add(passwordLabel);
-		passwordField = new JTextField();
+		passwordField = new JPasswordField();
 		passwordField.setBounds(x2, y, w, h);
 		getContentPane().add(passwordField);
 		y+=(h+5);

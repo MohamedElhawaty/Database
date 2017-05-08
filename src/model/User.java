@@ -27,20 +27,20 @@ public class User {
  
   
   public void editInformation() throws SQLException{
-    String query = "Update user SET"
+    String query = "Update `user` SET"
         + " password = " 
         +"\'"+ this.password +"\'"+" ,"
-        +" SET firstName = " 
+        +"firstName = " 
         +"\'"+ this.firstName +"\'"+ " ,"
-        +" SET lastName = " 
+        +"lastName = " 
         +"\'"+ this.lastName + " ,"
-        +" SET email = " 
+        +"email = " 
         +"\'"+ this.email +"\'";
     if(this.phoneNumber != null){
-       query  += " , SET phoneNumber = " + "\'"+this.phoneNumber+"\'" ;
+       query  += " , phoneNumber = " + "\'"+this.phoneNumber+"\'" ;
     }
     if(this.shippingAddress != null){
-      query  += " , SET shippingAddress = " +"\'"+ this.shippingAddress +"\'";
+      query  += " , shippingAddress = " +"\'"+ this.shippingAddress +"\'";
     }
     query +=" WHERE name =  " + "\'"+this.userName+"\'";
     Controller.stmt.executeUpdate(query);  
@@ -162,7 +162,7 @@ public class User {
   }
   
   public void promote() throws SQLException{
-    String query = "Update user SET isManager = true";
+    String query = "Update `user` SET isManager = true";
     query +=" WHERE name =  " + "\'"+this.userName+"\'";
     Controller.stmt.executeUpdate(query);  
   }

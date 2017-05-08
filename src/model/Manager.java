@@ -61,7 +61,7 @@ public class Manager extends User {
   }
 
   public ResultSet getAllCustomers() throws SQLException {
-    String query = "Select * from user where isManager = false";
+    String query = "Select * from `user` where isManager = false";
     return Controller.stmt.executeQuery(query);
   }
 
