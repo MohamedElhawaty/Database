@@ -4,13 +4,21 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -24,6 +32,7 @@ public class ShoppingCartView extends JFrame {
 	
 	private JTable table;
 	
+	private JFrame frame = this;
 	private final String [] buttons = {"Buy", "Delete Book", "Delete All"};
 	private ActionListener[] actions;
 	private User user;
@@ -132,21 +141,41 @@ public class ShoppingCartView extends JFrame {
 	private class BuyAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			controller.checkout();
+			String cartNumber = JOptionPane.showInputDialog(frame, "Enter your cart number: ");
+			String date = JOptionPane.showInputDialog(frame, "Enter your cart due date like this dd-MMM-yyyy");
+			
+			DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+			String timeStamp = new SimpleDateFormat("dd-MMM-yyyy").format(Calendar.getInstance().getTime());
+			java.util.Date dueDate = null, now = null;
+			
+			try {
+				dueDate = (java.util.Date) formatter.parse(date);
+				now = (java.util.Date) formatter.parse(timeStamp);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				
+			}
+			if(dueDate.after(now)){
+				controller.checkout();
+				//JOptionPane.showMessageDialog(null, "Buy Done :D" , "Buy Done", JOptionPane.INFORMATION_MESSAGE);
+			}else{
+				JOptionPane.showMessageDialog(null, "invaled Due date!!\ncheck you due date cart!!" , "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	private class DeleteBookAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Integer ISBN = Integer.valueOf((String)table.getValueAt(table.getSelectedRow(), 0));
-			//user.removeBookFromShoppingCart(ISBN);
+			user.removeBookFromShoppingCart(ISBN);
 			updateTable(user.getShoppingCart());
 		}
 	}
 	private class DeleteAllAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//user.removeAll(); or 
+			//user.removeAll();
 			updateTable(user.getShoppingCart());
 		}
 	}

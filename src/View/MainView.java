@@ -109,8 +109,8 @@ public class MainView extends JFrame {
 		actions[3] = new NewBookAction();
 		actions[4] = new EditBookAction();
 		actions[5] = new PlaceOrderAction();
-		actions[6] = new ConfirmOrderAction();
-		actions[7] = new ShowOrderAction();
+		actions[6] = new ShowOrderAction();
+		actions[7] = new ConfirmOrderAction();
 		actions[8] = new ShowCustomerAction();
 		actions[9] = new promoteCustomerAction();
 		actions[10] = new TotalSalesAction();

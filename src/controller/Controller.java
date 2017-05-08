@@ -461,7 +461,6 @@ public class Controller {
           orders.add(o);
           
         }
-        System.out.println(orders.size());
       } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
         // View.showError(e.getMessage());

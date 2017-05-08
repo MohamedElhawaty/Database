@@ -173,4 +173,8 @@ public class User {
     this.salesNumber = salesNumber;
   }
   
+  public void removeAll(){
+	this.shoppingCart = new LinkedHashMap<Book,Integer>();
+  }
+  
 }
