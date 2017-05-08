@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2017 at 03:01 PM
+-- Generation Time: May 08, 2017 at 04:08 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -43,7 +43,7 @@ CREATE TABLE `book` (
 DELIMITER $$
 CREATE TRIGGER `Modify` BEFORE UPDATE ON `book` FOR EACH ROW BEGIN
 	declare no_of_copies int;
-    set no_of_copies = NEW.number_of_copies;
+    set no_of_copies = NEW.numberOfCopies;
     IF no_of_copies < 0 THEN
     	SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Number of copies is going to be negative';
@@ -76,8 +76,8 @@ CREATE TRIGGER `placeOrder` AFTER UPDATE ON `book` FOR EACH ROW BEGIN
     DECLARE no_of_copies int;
     DECLARE max_id int;
 	set threshold =  new.threshold;
-   	set no_of_copies = NEW.number_of_copies;
-	if no_of_copies < threshold and  NEW.number_of_copies < OLD.number_of_copies THEN
+   	set no_of_copies = NEW.numberOfCopies;
+	if no_of_copies < threshold and  NEW.numberOfCopies < OLD.numberOfCopies THEN
         select max(orderid) into max_id from `order`;
         if max_id is null THEN
             set max_id = 0;
@@ -124,8 +124,8 @@ CREATE TRIGGER `confirmOrder` BEFORE DELETE ON `order` FOR EACH ROW BEGIN
     set orderId = old.orderId;
     set bookId = old.ISBN;
     set quantity = old.quantity;
-    select number_of_copies into no_of_copies from book where isbn = bookId;
-    UPDATE book set number_of_copies= no_of_copies+ quantity where ISBN = bookId;
+    select numberOfCopies into no_of_copies from book where isbn = bookId;
+    UPDATE book set numberOfCopies= no_of_copies+ quantity where ISBN = bookId;
 
 END
 $$
