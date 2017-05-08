@@ -152,7 +152,6 @@ public class MainView extends JFrame {
 		columnNames.add("Threshold");
 		columnNames.add("Category");
 		columnNames.add("author");
-		System.out.println("hello " + books.size());
 		if(books == null || books.size() <= 0){
 			Vector<String> tuple = new Vector<String>();
 			tuple.add("");
