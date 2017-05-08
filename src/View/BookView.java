@@ -38,7 +38,8 @@ public class BookView extends JFrame implements WindowListener{
 	private Book book;
 	private boolean create;
 	
-	
+	private JFrame frame = this;
+
 	public BookView(Book book, boolean create) {
 		
 		controller =  Controller.getInstance();
@@ -191,6 +192,8 @@ public class BookView extends JFrame implements WindowListener{
 				if(controller.addBook(temp)){
 					book = temp;
 					JOptionPane.showMessageDialog(null, "Book Added");
+		       frame.dispose();
+
 				}
 				
 			//	update(book);
@@ -200,6 +203,7 @@ public class BookView extends JFrame implements WindowListener{
 				if(controller.modifyBook(temp)){
 					book = temp;
 	         JOptionPane.showMessageDialog(null, "Book Modified");
+           frame.dispose();
 
 				}
 			//	update(book);

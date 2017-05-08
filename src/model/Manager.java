@@ -45,17 +45,17 @@ public class Manager extends User {
 
 
   public ResultSet getTopFiveCustomers() throws SQLException {
-    String query = "Select userName , sum(salesNumber) from sales"
+    String query = "Select userName , sum(salesNumber) from sales "
         + "group by userName "
-        + "order by salesNumber DESC "
-        + "limit 5";
+        + "order by  2 DESC "
+        + "LIMIT 5";
     return Controller.stmt.executeQuery(query);
   }
 
   public ResultSet getTopTenBooks() throws SQLException {
-    String query = "Select ISBN , sum(salesNumber) from sales"
+    String query = "Select ISBN , sum(salesNumber) from sales "
         + "group by ISBN "
-        + "order by salesNumber DESC "
+        + "order by  2 DESC "
         + "limit 10";
     return Controller.stmt.executeQuery(query);
   }
