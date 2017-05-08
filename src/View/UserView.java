@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -36,7 +38,11 @@ public class UserView extends JFrame implements WindowListener{
 		this.user = user;
 		this.signup = signup;
 		getContentPane().setLayout(null);
-
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    this.setSize(new Dimension(500,450));
+    this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    this.setTitle("Sign Up");
+    
 		int x1 = 10 , x2  = 10+200+10 , y = 10 , w = 200 , h = 35 ;
 		JLabel userNameLabel = new JLabel("User Name: ");
 		userNameLabel.setBounds(x1, y, w, h);

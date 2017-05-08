@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -52,7 +53,12 @@ public class MainView extends JFrame {
 		
 		this.user = user;
 		getContentPane().setLayout(null);
-		
+		getContentPane().setLayout(null);
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    this.setSize(new Dimension(500,550));
+    this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    this.setTitle("Main");
+    
 		controller = Controller.getInstance();
 		
 		comboBox = new JComboBox(attributes);
@@ -117,7 +123,7 @@ public class MainView extends JFrame {
 		}
 		
 		if(user instanceof Manager){
-			for(int i = 3 ; i < 15 ; i++){
+			for(int i = 3 ; i < 14 ; i++){
 				JButton button = new JButton(buttons[i]);
 				button.setBounds(x, y+=(h+5), w, h);
 				button.addActionListener(actions[i]);
@@ -139,13 +145,13 @@ public class MainView extends JFrame {
 		columnNames.clear();
 		columnNames.add("ISBN");
 		columnNames.add("Title");
-		columnNames.add("Publisher");
+		columnNames.add("publisherName");
 		columnNames.add("Year");
 		columnNames.add("Price");
-		columnNames.add("#Copies");
+		columnNames.add("numberOfCopies");
 		columnNames.add("Threshold");
 		columnNames.add("Category");
-		columnNames.add("Authers");
+		columnNames.add("author");
 		
 		if(books == null || books.size() <= 0){
 			Vector<String> tuple = new Vector<String>();

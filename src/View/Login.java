@@ -8,6 +8,8 @@ import javax.swing.JTextField;
 import controller.Controller;
 import model.User;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -20,7 +22,11 @@ public class Login extends JFrame implements WindowListener{
 	private JFrame frame = this;
 	
 	public Login() {
+	  Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	  this.setSize(new Dimension(500,250));
+	  this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		getContentPane().setLayout(null);
+		this.setTitle("Login");
 		
 		nameField = new JTextField();
 		nameField.setBounds(75, 55, 246, 19);

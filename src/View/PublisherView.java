@@ -1,5 +1,7 @@
 package View;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -36,7 +38,11 @@ public class PublisherView extends JFrame {
 		this.create = create;
 		
 		controller = Controller.getInstance();
-		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+    this.setSize(new Dimension(500,250));
+    this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+    getContentPane().setLayout(null);
+    this.setTitle("Publisher");
 		getContentPane().setLayout(null);
 		
 		int x1 = 10 , x2  = 10+200+10 , y = 10 , w = 200 , h = 35 ;

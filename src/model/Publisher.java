@@ -53,7 +53,7 @@ public class Publisher {
   }
   public void addPublisher() throws SQLException{
     String query = "Insert into publisher (name)"
-        + "Value ( "+ this.name+" )";
+        + "Value ( \'"+ this.name+"\' )";
     Controller.stmt.executeUpdate(query); 
 
     for(String phone : this.phoneNumbers){

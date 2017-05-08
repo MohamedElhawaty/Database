@@ -47,7 +47,7 @@ public class User {
   }
   
   public ResultSet searchBook(String attrubite , String value) throws SQLException{
-    if(attrubite.equals("author ")){
+    if(attrubite.equals("author")){
       return searchBookByAuthor(value);
     }
     
