@@ -1,6 +1,7 @@
 package View;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import controller.Controller;
@@ -94,5 +95,9 @@ public class Login extends JFrame implements WindowListener{
 			frame.setVisible(false);
 		}
 		
+	}
+	
+	public static void showError(String message){
+		JOptionPane.showMessageDialog(null, message , "Error", JOptionPane.ERROR_MESSAGE);
 	}
 }
