@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -35,7 +36,11 @@ public class ShoppingCartView extends JFrame {
 	
 		this.user = user;
 		getContentPane().setLayout(null);
-			 
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+	    this.setSize(new Dimension(500,300));
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+		this.setTitle("Order");
 		
 		table = new JTable();
 		if(user != null){
@@ -49,6 +54,8 @@ public class ShoppingCartView extends JFrame {
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setVisible(true);
+        scrollPane.setBounds(20,30,300,700);
         getContentPane().add(scrollPane);
 
 		

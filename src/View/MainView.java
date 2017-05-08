@@ -158,17 +158,6 @@ public class MainView extends JFrame {
 		columnNames.add("Category");
 		columnNames.add("author");
 		if(books == null || books.size() <= 0){
-			Vector<String> tuple = new Vector<String>();
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			data.add(tuple);
 			DefaultTableModel model = new DefaultTableModel(data, columnNames);
 			table.setModel(model);
 		}else{
@@ -202,14 +191,6 @@ public class MainView extends JFrame {
 		columnNames.add("Address");
 
 		if(users == null || users.size() <= 0){
-			Vector<String> tuple = new Vector<String>();
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			data.add(tuple);
 			DefaultTableModel model = new DefaultTableModel(data, columnNames);
 			table.setModel(model);
 		}else{
@@ -236,11 +217,6 @@ public class MainView extends JFrame {
 		columnNames.add("Quantitiy");
 
 		if(orders == null || orders.size() <= 0){
-			Vector<String> tuple = new Vector<String>();
-			tuple.add("");
-			tuple.add("");
-			tuple.add("");
-			data.add(tuple);
 			DefaultTableModel model = new DefaultTableModel(data, columnNames);
 			table.setModel(model);
 		}else{
