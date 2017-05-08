@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2017 at 06:54 PM
+-- Generation Time: May 08, 2017 at 03:01 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -36,13 +36,6 @@ CREATE TABLE `book` (
   `threshold` int(11) DEFAULT '0',
   `category` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `book`
---
-
-INSERT INTO `book` (`ISBN`, `title`, `publisherName`, `year`, `price`, `numberOfCopies`, `threshold`, `category`) VALUES
-(1, 'title', 'ahmed', '0000-00-00', 2, 0, 2, 'art');
 
 --
 -- Triggers `book`
@@ -120,13 +113,6 @@ CREATE TABLE `order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `order`
---
-
-INSERT INTO `order` (`orderId`, `ISBN`, `quantity`) VALUES
-(1, 1, 2);
-
---
 -- Triggers `order`
 --
 DELIMITER $$
@@ -154,13 +140,6 @@ DELIMITER ;
 CREATE TABLE `publisher` (
   `name` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `publisher`
---
-
-INSERT INTO `publisher` (`name`) VALUES
-('ahmed');
 
 -- --------------------------------------------------------
 
@@ -195,7 +174,8 @@ CREATE TABLE `sales` (
   `userName` varchar(40) NOT NULL,
   `sellingDate` date NOT NULL,
   `sellingTime` time NOT NULL,
-  `salesNumber` int(11) DEFAULT NULL
+  `salesNumber` int(11) DEFAULT NULL,
+  `price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -214,6 +194,13 @@ CREATE TABLE `user` (
   `shippingAddress` varchar(100) DEFAULT NULL,
   `isManager` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`name`, `password`, `Lname`, `Fname`, `Email`, `phoneNumber`, `shippingAddress`, `isManager`) VALUES
+('a', 'b', 'a', 'a', 'a', 'a', 'a', 1);
 
 --
 -- Indexes for dumped tables
