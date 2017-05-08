@@ -460,7 +460,6 @@ public class Controller {
         System.out.println(orders.size());
       } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
-
         // View.showError(e.getMessage());
         return null;
 

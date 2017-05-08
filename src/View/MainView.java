@@ -34,7 +34,7 @@ public class MainView extends JFrame {
 	private static Vector<Vector<String>> data = new Vector<Vector<String>>();
 	
 	/// NOTE the values of this strings should be the same in DB
-	private final String [] attributes = {"ISBN", "Title", "Publisher", "Year", "Price", "numberOfCopies", "threshold", "category", "salesNumber", "authors"};
+	private final String [] attributes = {"ISBN", "Title", "publisherName", "Year", "Price", "numberOfCopies", "threshold", "category", "salesNumber", "authors"};
 	private final String [] buttons = {"profile", "Add to Cart", "Show Cart", "New Book", "Edit Book",
 				"Place Order","Show Orders" , "Confirm Order", "Show Customers", "Promote Customer", "Total Sales", "Top 5 Customer", "Top 10 Books", "Add Publisher"};
 	private ActionListener[] actions;
