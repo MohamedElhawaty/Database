@@ -19,6 +19,7 @@ public class User {
   private int salesNumber;
 
   private LinkedHashMap<Book,Integer> shoppingCart ;
+  
   public User(){
     this.shoppingCart = new LinkedHashMap<Book,Integer>();
     
