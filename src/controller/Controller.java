@@ -9,20 +9,28 @@ public class Controller {
   public static Statement stmt;
   private Connection con;
   private User user;
-
-  public Controller() {
+  private static Controller controller ;
+  private Controller() {
     startController();
+  }
+  public static Controller getInstance(){
+    if(controller == null){
+      controller = new Controller();
+    }
+    return controller;
   }
 
   private void startController() {
     // TODO Auto-generated method stub
     try {
+      Class.forName("com.mysql.jdbc.Driver");
       this.con = DriverManager.getConnection(
           "jdbc:mysql://localhost:3306/bookstore", "root", "root");
       Controller.stmt = this.con.createStatement();
 
-    } catch (SQLException e) {
+    } catch (Exception e) {
       // View.showError(e.getMessage());
+      System.out.println(e.getMessage());
 
     }
 
@@ -243,15 +251,15 @@ public class Controller {
 
   }
 
-  public Integer getTotalSales() {
+  public Double getTotalSales() {
     if (user instanceof Manager) {
       try {
         ResultSet rs = ((Manager) this.user).getTotalSales();
         if (rs.next()) {
-          return rs.getInt(1);
+          return rs.getDouble(1);
         } else {
-          return 0;
-        }
+          return 0.0;
+         }
       } catch (SQLException e) {
         // View.showError(e.getMessage());
       }

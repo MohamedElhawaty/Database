@@ -69,7 +69,7 @@ public class User {
   public double getShoppingCartPrice(){
     double t = 0;
     for(Book book : this.shoppingCart.keySet()){
-      t += book.getPrice();
+      t += book.getPrice()*this.shoppingCart.get(book);
     }
     return t;
   }
@@ -83,10 +83,10 @@ public class User {
       query  += " WHERE ISBN =  " + book.getISBN();
       Controller.stmt.executeUpdate(query); 
       String add = "Insert into sales (ISBN,userName,sellingDate,"
-          + "sellingTime,salesNumber)"
+          + "sellingTime,salesNumber,price)"
           + "values (" + book.getISBN()+ " ,"
           + " " + this.userName + " ,"
-          + " current_date() ,  current_time() , "+ tobuy + " ) ";
+          + " current_date() ,  current_time() , "+ tobuy + " , " + tobuy * book.getPrice() + " ) ";
       Controller.stmt.executeUpdate(add); 
     }
     this.shoppingCart = new LinkedHashMap<Book,Integer>();
