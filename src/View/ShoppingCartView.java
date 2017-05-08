@@ -38,7 +38,11 @@ public class ShoppingCartView extends JFrame {
 			 
 		
 		table = new JTable();
-		updateTable(user.getShoppingCart());
+		if(user != null){
+			LinkedHashMap<Book,Integer> books = user.getShoppingCart();
+			updateTable(books);
+		}
+		
 		table.setSurrendersFocusOnKeystroke(true);
 		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		//table.setBounds(12, 285, 320, -250);
@@ -49,7 +53,7 @@ public class ShoppingCartView extends JFrame {
 
 		
 		
-			
+		actions = new ActionListener[3];
 		actions[0] = new BuyAction();
 		actions[1] = new DeleteBookAction();
 		actions[2] = new DeleteAllAction();

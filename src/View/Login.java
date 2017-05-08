@@ -40,7 +40,7 @@ public class Login extends JFrame implements WindowListener{
 		getContentPane().add(signupButton);
 		signupButton.addActionListener(new signupAction());
 		
-		//controller =  Controller.getInstance();
+		controller =  Controller.getInstance();
 	}
 
 	/**
@@ -74,7 +74,10 @@ public class Login extends JFrame implements WindowListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			controller.login(nameField.getText().toLowerCase(), passwordField.getText());
+			User user = controller.login(nameField.getText().toLowerCase(), passwordField.getText());
+			MainView mainView = new MainView(user);
+			mainView.setVisible(true);
+			frame.setVisible(false);
 		}
 		
 	}

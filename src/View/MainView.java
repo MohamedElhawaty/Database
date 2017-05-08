@@ -53,6 +53,8 @@ public class MainView extends JFrame {
 		this.user = user;
 		getContentPane().setLayout(null);
 		
+		controller = Controller.getInstance();
+		
 		comboBox = new JComboBox(attributes);
 		comboBox.setMaximumRowCount(5);
 		comboBox.setBounds(12, 6, 100, 24);
@@ -89,7 +91,7 @@ public class MainView extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         getContentPane().add(scrollPane);
 		
-		
+		actions = new ActionListener[14];
 		actions[0] = new ProfileAction();
 		actions[1] = new AddToCartAction();
 		actions[2] = new ShowCartAction();
