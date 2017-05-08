@@ -7,6 +7,7 @@
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
+drop schema bookstore;
 create schema bookstore;
 use bookstore;
 
@@ -302,6 +303,9 @@ ALTER TABLE `publisherphone`
 ALTER TABLE `sales`
   ADD CONSTRAINT `salesfk1` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `salesfk2` FOREIGN KEY (`userName`) REFERENCES `user` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+insert into user (name , password , Lname , Fname , Email , phoneNumber , shippingAddress , isManager)
+VALUES('mm' , 'mm' , 'mm' , 'mm' , 'mm' , '012' , 'mm' , true);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -45,6 +45,8 @@ public class MainView extends JFrame {
 	private static ArrayList<User> customer = new ArrayList<User>();
 	private static ArrayList<Order> orders = new ArrayList<Order>();
 	
+	private  JScrollPane scrollPane = null;
+	
 	private final static int BOOK = 0, CUSTOMER = 1, ORDER = 2;
 	private static int state = BOOK;
 	
@@ -86,7 +88,7 @@ public class MainView extends JFrame {
 		}else if(state == CUSTOMER){
 			updateTableCustomer(customer);
 		}else if(state == ORDER){
-			
+			updateTableOrders(orders);
 		}
 		
 		table.setSurrendersFocusOnKeystroke(true);
@@ -95,6 +97,9 @@ public class MainView extends JFrame {
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setVisible(true);
+        scrollPane.setBounds(20,30,300,700);
+        //scrollPane.setSize(300, 700);
         getContentPane().add(scrollPane);
 		
 		actions = new ActionListener[15];
