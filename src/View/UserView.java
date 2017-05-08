@@ -7,16 +7,11 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import controller.Controller;
 import model.User;
-
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 public class UserView extends JFrame implements WindowListener{
 	private JTextField userNameField;
@@ -31,94 +26,80 @@ public class UserView extends JFrame implements WindowListener{
 	private Controller controller;
 	private User user;
 	private boolean signup;
+	private JFrame frame = this;
 	
 	public UserView(User user, boolean signup) {
 		
+		controller = Controller.getInstance();
+		
 		this.user = user;
 		this.signup = signup;
-		//controller =  Controller.getInstance();
-		
-		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
-		
+		getContentPane().setLayout(null);
+
+		int x1 = 10 , x2  = 10+200+10 , y = 10 , w = 200 , h = 35 ;
 		JLabel userNameLabel = new JLabel("User Name: ");
-		getContentPane().add(userNameLabel, "4, 4");
-		
+		userNameLabel.setBounds(x1, y, w, h);
+		getContentPane().add(userNameLabel);
 		userNameField = new JTextField();
-		getContentPane().add(userNameField, "8, 4, fill, default");
-		userNameField.setColumns(10);
+		userNameField.setBounds(x2, y, w, h);
+		getContentPane().add(userNameField);
+		y+=(h+5);
+		
 		
 		JLabel passwordLabel = new JLabel("Password: ");
-		getContentPane().add(passwordLabel, "4, 6");
-		
+		passwordLabel.setBounds(x1, y, w, h);
+		getContentPane().add(passwordLabel);
 		passwordField = new JTextField();
-		getContentPane().add(passwordField, "8, 6, fill, default");
-		passwordField.setColumns(10);
+		passwordField.setBounds(x2, y, w, h);
+		getContentPane().add(passwordField);
+		y+=(h+5);
 		
 		JLabel firstNameLabel = new JLabel("First Name: ");
-		getContentPane().add(firstNameLabel, "4, 8");
-		
+		firstNameLabel.setBounds(x1, y, w, h);
+		getContentPane().add(firstNameLabel);
 		firstNameField = new JTextField();
-		getContentPane().add(firstNameField, "8, 8, fill, default");
-		firstNameField.setColumns(10);
+		firstNameField.setBounds(x2, y, w, h);
+		getContentPane().add(firstNameField);
+		y+=(h+5);
 		
 		JLabel lastNameLabel = new JLabel("Last Name: ");
-		getContentPane().add(lastNameLabel, "4, 10");
-		
+		lastNameLabel.setBounds(x1, y, w, h);
+		getContentPane().add(lastNameLabel);
 		lastNameField = new JTextField();
-		getContentPane().add(lastNameField, "8, 10, fill, default");
-		lastNameField.setColumns(10);
+		lastNameField.setBounds(x2, y, w, h);
+		getContentPane().add(lastNameField);
+		y+=(h+5);
+		
 		
 		JLabel emailLabel = new JLabel("Email: ");
-		getContentPane().add(emailLabel, "4, 12");
-		
+		emailLabel.setBounds(x1, y, w, h);
+		getContentPane().add(emailLabel);
 		emailField = new JTextField();
-		getContentPane().add(emailField, "8, 12, fill, default");
-		emailField.setColumns(10);
+		emailField.setBounds(x2, y, w, h);
+		getContentPane().add(emailField);
+		y+=(h+5);
 		
 		JLabel phoneLabel = new JLabel("Phone: ");
-		getContentPane().add(phoneLabel, "4, 14");
-		
+		phoneLabel.setBounds(x1, y, w, h);
+		getContentPane().add(phoneLabel);
 		phoneField = new JTextField();
-		getContentPane().add(phoneField, "8, 14, fill, default");
-		phoneField.setColumns(10);
+		phoneField.setBounds(x2, y, w, h);
+		getContentPane().add(phoneField);
+		y+=(h+5);
 		
 		JLabel addressLabel = new JLabel("Address: ");
-		getContentPane().add(addressLabel, "4, 16");
-		
+		addressLabel.setBounds(x1, y, w, h);
+		getContentPane().add(addressLabel);
 		addressField = new JTextField();
-		getContentPane().add(addressField, "8, 16, fill, default");
-		addressField.setColumns(10);
-		
+		addressField.setBounds(x2, y, w, h);
+		getContentPane().add(addressField);
+		y+=(h+5);
 		
 		saveButton = new JButton("Save");
-		saveButton.setBounds(200, 200, 200, 200);
-		getContentPane().add(saveButton);
 		saveButton.addActionListener(new saveAction());
+		saveButton.setBounds(x1, y, w, h);
+		getContentPane().add(saveButton);
+		y+=(h+5);
 		
 		
 		if(!signup){
@@ -172,6 +153,9 @@ public class UserView extends JFrame implements WindowListener{
 				}
 				update(user);
 				// if done show message success or failed
+				MainView mainView = new MainView(user);
+				mainView.setVisible(true);
+				frame.setVisible(false);
 			}else{
 				/// i need editInformation to return something to indicate if finish success or not
 				if(controller.editInformation(temp)){
