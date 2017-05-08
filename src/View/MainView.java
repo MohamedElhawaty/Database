@@ -53,6 +53,7 @@ public class MainView extends JFrame {
 		
 		this.user = user;
 		getContentPane().setLayout(null);
+		getContentPane().setLayout(null);
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     this.setSize(new Dimension(500,550));
     this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -282,8 +283,20 @@ public class MainView extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if(state == BOOK){
 				String toBuy = JOptionPane.showInputDialog(frame, "How many copies you want to buy?");
-				Book selectedBook = searchBooks.get(table.getSelectedRow());
-				user.addBookToShoppingCart(selectedBook, Integer.valueOf(toBuy));
+				int index = table.getSelectedRow();
+				
+				if(searchBooks != null && (index < searchBooks.size() && index >= 0)){
+					Book selectedBook = searchBooks.get(index);
+					if(selectedBook != null){
+						user.addBookToShoppingCart(selectedBook, Integer.valueOf(toBuy));
+					}else{
+						JOptionPane.showMessageDialog(null, "no selected book!!" , "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}else{
+					JOptionPane.showMessageDialog(null, "selected book index invalid!!" , "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}else{
+				JOptionPane.showMessageDialog(null, "you should search and select book first!!" , "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
@@ -312,7 +325,7 @@ public class MainView extends JFrame {
 			if(state == BOOK){
 				String toBuy = JOptionPane.showInputDialog(frame, "How many copies you want to buy?");
 				int index = table.getSelectedRow();
-				if(index < searchBooks.size()){
+				if(searchBooks != null && (index < searchBooks.size() && index >= 0 )){
 					Book selectedBook = searchBooks.get(index);
 					if(selectedBook != null){
 						user.addBookToShoppingCart(selectedBook, Integer.valueOf(toBuy));
@@ -322,6 +335,8 @@ public class MainView extends JFrame {
 				}else{
 					JOptionPane.showMessageDialog(null, "selected book index invalid!!" , "Error", JOptionPane.ERROR_MESSAGE);
 				}
+			}else{
+				JOptionPane.showMessageDialog(null, "you should search and select book first!!" , "Error", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}
