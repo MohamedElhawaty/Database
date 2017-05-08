@@ -18,8 +18,11 @@ public class User {
   private String shippingAddress ;
   private int salesNumber;
 
-  private LinkedHashMap<Book,Integer> shoppingCart = new LinkedHashMap<Book,Integer>();
-  
+  private LinkedHashMap<Book,Integer> shoppingCart ;
+  public User(){
+    this.shoppingCart = new LinkedHashMap<Book,Integer>();
+    
+  }
  
   
   public void editInformation() throws SQLException{
@@ -95,7 +98,7 @@ public class User {
   
   
   public LinkedHashMap<Book, Integer> getShoppingCart() {
-    return shoppingCart;
+    return this.shoppingCart;
   }
   
   // Setter and Getters
