@@ -346,6 +346,7 @@ public class Controller {
           Book book = new Book();
           book.setISBN(rs.getInt("ISBN"));
           book.setSalesNumber(rs.getInt("sum(salesNumber)"));
+          books.add(book);
         }
         return books;
       } catch (SQLException e) {
@@ -454,7 +455,9 @@ public class Controller {
           o.setISBN(rs.getInt("ISBN"));
           o.setQuantity(rs.getInt("quantity"));
           orders.add(o);
+          
         }
+        System.out.println(orders.size());
       } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
 
