@@ -338,6 +338,7 @@ public class MainView extends JFrame {
 	private class ShowOrderAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
 			orders = controller.getAllOrder();
 			updateTableOrders(orders);
 		}
@@ -365,8 +366,19 @@ public class MainView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(state == CUSTOMER){
-				User selectedUser = customer.get(table.getSelectedRow());
-				controller.promote(selectedUser);
+				int index = table.getSelectedRow();
+				if(customer != null && (index < customer.size() && index >= 0 )){
+					User selectedUser = customer.get(index);
+					if(selectedUser != null){
+						controller.promote(selectedUser);
+					}else{
+						JOptionPane.showMessageDialog(null, "no selected customer!!" , "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}else{
+					JOptionPane.showMessageDialog(null, "selected customer index invalid!!" , "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}else{
+				JOptionPane.showMessageDialog(null, "you should search and select customer first!!" , "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

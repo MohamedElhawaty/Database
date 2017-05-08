@@ -37,6 +37,8 @@ public class ShoppingCartView extends JFrame {
 		this.user = user;
 		getContentPane().setLayout(null);
 		
+		controller = Controller.getInstance();
+		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 	    this.setSize(new Dimension(500,300));
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
@@ -90,12 +92,12 @@ public class ShoppingCartView extends JFrame {
 		columnNames.add("Authers");
 		
 		
-		int count = 0;
+		double count = 0;
 		for(Entry<Book, Integer> entry : books.entrySet()){
 			Vector<String> tuple = new Vector<String>();
 			Book book = entry.getKey();
 			int quantity = entry.getValue();
-			count += quantity;
+			count += quantity*book.getPrice();
 			tuple.add(String.valueOf(book.getISBN()));
 			tuple.add(book.getTitle());
 			tuple.add(book.getPublisherName());
