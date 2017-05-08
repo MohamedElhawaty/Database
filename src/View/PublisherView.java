@@ -35,48 +35,42 @@ public class PublisherView extends JFrame {
 		this.publisher = publisher;
 		this.create = create;
 		
-		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
+		controller = Controller.getInstance();
 		
+		getContentPane().setLayout(null);
+		
+		int x1 = 10 , x2  = 10+200+10 , y = 10 , w = 200 , h = 35 ;
 		JLabel nameLabel = new JLabel("Publisher Name: ");
-		getContentPane().add(nameLabel, "4, 4");
-		
+		getContentPane().add(nameLabel);
+		nameLabel.setBounds(x1, y, w, h);
 		nameField = new JTextField();
-		getContentPane().add(nameField, "8, 4, fill, default");
-		nameField.setColumns(10);
-		
+		getContentPane().add(nameField);
+		nameField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel addressLabel = new JLabel("Addressess: ");
-		getContentPane().add(addressLabel, "4, 6");
+		getContentPane().add(addressLabel);
+		addressLabel.setBounds(x1, y, w, h);
 		
 		addressField = new JTextField();
-		getContentPane().add(addressField, "8, 6, fill, default");
-		addressField.setColumns(10);
-		
+		getContentPane().add(addressField);
+		addressField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel phoneLabel = new JLabel("Phone Numbers: ");
-		getContentPane().add(phoneLabel, "4, 8");
+		getContentPane().add(phoneLabel);
+		phoneLabel.setBounds(x1, y, w, h);
 		
 		phoneField = new JTextField();
-		getContentPane().add(phoneField, "8, 8, fill, default");
-		phoneField.setColumns(10);
+		getContentPane().add(phoneField);
+		phoneField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		saveButton = new JButton("Save");
-		saveButton.setBounds(200, 200, 200, 200);
+		saveButton.setBounds(x1, y, w, h);
 		getContentPane().add(saveButton);
 		saveButton.addActionListener(new saveAction());
+		y+=(h+5);
 		
 		if(!create){
 			update(publisher);

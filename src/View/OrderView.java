@@ -30,49 +30,44 @@ public class OrderView extends JFrame {
 	public OrderView(Order order, boolean create){
 		this.order = order;
 		this.create = create;
+		controller = Controller.getInstance();
 		
-		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
+		getContentPane().setLayout(null);
+		
+		int x1 = 10 , x2  = 10+200+10 , y = 10 , w = 200 , h = 35 ;
 		
 		JLabel IDLabel = new JLabel("Publisher Name: ");
-		getContentPane().add(IDLabel, "4, 4");
+		getContentPane().add(IDLabel);
+		IDLabel.setBounds(x1, y, w, h);
 		
 		IDField = new JTextField();
-		getContentPane().add(IDField, "8, 4, fill, default");
-		IDField.setColumns(10);
-		
+		getContentPane().add(IDField);
+		IDField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel ISBNLabel = new JLabel("Addressess: ");
-		getContentPane().add(ISBNLabel, "4, 6");
+		getContentPane().add(ISBNLabel);
+		ISBNLabel.setBounds(x1, y, w, h);
 		
 		ISBNField = new JTextField();
-		getContentPane().add(ISBNField, "8, 6, fill, default");
-		ISBNField.setColumns(10);
-		
+		getContentPane().add(ISBNField);
+		ISBNField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel quantityLabel = new JLabel("Phone Numbers: ");
-		getContentPane().add(quantityLabel, "4, 8");
+		getContentPane().add(quantityLabel);
+		quantityLabel.setBounds(x1, y, w, h);
 		
 		quantityField = new JTextField();
-		getContentPane().add(quantityField, "8, 8, fill, default");
-		quantityField.setColumns(10);
+		getContentPane().add(quantityField);
+		quantityField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		saveButton = new JButton("Save");
-		saveButton.setBounds(200, 200, 200, 200);
+		saveButton.setBounds(x1, y, w, h);
 		getContentPane().add(saveButton);
 		saveButton.addActionListener(new saveAction());
+		y+=(h+5);
 		
 		if(!create){
 			update(order);

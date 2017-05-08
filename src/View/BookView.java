@@ -38,101 +38,100 @@ public class BookView extends JFrame implements WindowListener{
 	
 	public BookView(Book book, boolean create) {
 		
-		//controller =  Controller.getInstance();
+		controller =  Controller.getInstance();
 		this.book = book;
 		this.create = create;
 		
-		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				FormSpecs.DEFAULT_COLSPEC,
-				FormSpecs.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
-			new RowSpec[] {
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,
-				FormSpecs.RELATED_GAP_ROWSPEC,
-				FormSpecs.DEFAULT_ROWSPEC,}));
+		getContentPane().setLayout(null);
+		
+		int x1 = 10 , x2  = 10+200+10 , y = 10 , w = 200 , h = 35 ;
 		
 		JLabel ISBNLabel = new JLabel("ISBN: ");
-		getContentPane().add(ISBNLabel, "4, 4");
+		getContentPane().add(ISBNLabel);
+		ISBNLabel.setBounds(x1, y, w, h);
 		
 		ISBNField = new JTextField();
-		getContentPane().add(ISBNField, "8, 4, fill, default");
-		ISBNField.setColumns(10);
-		
+		getContentPane().add(ISBNField);
+		ISBNField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel titleLabel = new JLabel("Title: ");
-		getContentPane().add(titleLabel, "4, 6");
+		getContentPane().add(titleLabel);
+		titleLabel.setBounds(x1, y, w, h);
 		
 		titleField = new JTextField();
-		getContentPane().add(titleField, "8, 6, fill, default");
-		titleField.setColumns(10);
-		
+		getContentPane().add(titleField);
+		titleField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel publisherLabel = new JLabel("Publisher: ");
-		getContentPane().add(publisherLabel, "4, 8");
+		getContentPane().add(publisherLabel);
+		publisherLabel.setBounds(x1, y, w, h);
 		
 		publisherField = new JTextField();
-		getContentPane().add(publisherField, "8, 8, fill, default");
-		publisherField.setColumns(10);
-		
+		getContentPane().add(publisherField);
+		publisherField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel yearLabel = new JLabel("Year: ");
-		getContentPane().add(yearLabel, "4, 10");
+		getContentPane().add(yearLabel);
+		yearLabel.setBounds(x1, y, w, h);
 		
 		yearField = new JTextField();
-		getContentPane().add(yearField, "8, 10, fill, default");
-		yearField.setColumns(10);
-		
+		getContentPane().add(yearField);
+		yearField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel priceLabel = new JLabel("price: ");
-		getContentPane().add(priceLabel, "4, 12");
+		getContentPane().add(priceLabel);
+		priceLabel.setBounds(x1, y, w, h);
 		
 		priceField = new JTextField();
-		getContentPane().add(priceField, "8, 12, fill, default");
-		priceField.setColumns(10);
-		
+		getContentPane().add(priceField);
+		priceField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel copiesLabel = new JLabel("# Cpoies: ");
-		getContentPane().add(copiesLabel, "4, 14");
+		getContentPane().add(copiesLabel);
+		copiesLabel.setBounds(x1, y, w, h);
 		
 		copiesField = new JTextField();
-		getContentPane().add(copiesField, "8, 14, fill, default");
-		copiesField.setColumns(10);
-		
+		getContentPane().add(copiesField);
+		copiesField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel thresholdLabel = new JLabel("Threshold: ");
-		getContentPane().add(thresholdLabel, "4, 16");
+		getContentPane().add(thresholdLabel);
+		thresholdLabel.setBounds(x1, y, w, h);
 		
 		thresholdField = new JTextField();
-		getContentPane().add(thresholdField, "8, 16, fill, default");
-		thresholdField.setColumns(10);
-		
+		getContentPane().add(thresholdField);
+		thresholdField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel categoryLabel = new JLabel("Category: ");
-		getContentPane().add(categoryLabel, "4, 18");
+		getContentPane().add(categoryLabel);
+		categoryLabel.setBounds(x1, y, w, h);
 		
 		categoryField = new JTextField();
-		getContentPane().add(categoryField, "8, 18, fill, default");
-		categoryField.setColumns(10);
-		
+		getContentPane().add(categoryField);
+		categoryField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		JLabel authorLabel = new JLabel("Authors: ");
-		getContentPane().add(authorLabel, "4, 20");
+		getContentPane().add(authorLabel);
+		authorLabel.setBounds(x1, y, w, h);
 		
 		authorsField = new JTextField();
-		getContentPane().add(authorsField, "8, 20, fill, default");
-		authorsField.setColumns(10);
+		getContentPane().add(authorsField);
+		authorsField.setBounds(x2, y, w, h);
+		y+=(h+5);
 		
 		saveButton = new JButton("Save");
-		saveButton.setBounds(200, 200, 200, 200);
+		saveButton.setBounds(x1, y, w, h);
 		getContentPane().add(saveButton);
 		saveButton.addActionListener(new saveAction());
-		
+		y+=(h+5);
 		if(!create){
 			update(book);
 		}

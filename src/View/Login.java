@@ -75,9 +75,11 @@ public class Login extends JFrame implements WindowListener{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			User user = controller.login(nameField.getText().toLowerCase(), passwordField.getText());
-			MainView mainView = new MainView(user);
-			mainView.setVisible(true);
-			frame.setVisible(false);
+			if(user != null){
+				MainView mainView = new MainView(user);
+				mainView.setVisible(true);
+				frame.setVisible(false);
+			}
 		}
 		
 	}
