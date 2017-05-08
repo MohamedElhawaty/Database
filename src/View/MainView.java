@@ -91,7 +91,7 @@ public class MainView extends JFrame {
         JScrollPane scrollPane = new JScrollPane(table);
         getContentPane().add(scrollPane);
 		
-		actions = new ActionListener[14];
+		actions = new ActionListener[15];
 		actions[0] = new ProfileAction();
 		actions[1] = new AddToCartAction();
 		actions[2] = new ShowCartAction();
@@ -105,7 +105,7 @@ public class MainView extends JFrame {
 		actions[10] = new TotalSalesAction();
 		actions[11] = new Top5CustomersAction();
 		actions[12] = new Top10BooksAction();
-		actions[13] = new Top10BooksAction();
+		actions[13] = new AddPublisherAction();
 		
 		
 		int x = 321, y = 12, w = 117, h = 25;
@@ -117,7 +117,7 @@ public class MainView extends JFrame {
 		}
 		
 		if(user instanceof Manager){
-			for(int i = 3 ; i < 14 ; i++){
+			for(int i = 3 ; i < 15 ; i++){
 				JButton button = new JButton(buttons[i]);
 				button.setBounds(x, y+=(h+5), w, h);
 				button.addActionListener(actions[i]);
