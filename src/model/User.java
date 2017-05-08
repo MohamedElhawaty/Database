@@ -50,6 +50,7 @@ public class User {
     if(attrubite.equals("author ")){
       return searchBookByAuthor(value);
     }
+    
     String query;
     if(attrubite.equals("ISBN") ||attrubite.equals("price") || attrubite.equals("numberOfCopies") ||  attrubite.equals("threshold")){
       query= "Select * from Book where " + attrubite + " = " + value;
