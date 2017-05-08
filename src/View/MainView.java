@@ -181,6 +181,27 @@ public class MainView extends JFrame {
 		}
 	}
 	
+	private void updateTableTop10Books(ArrayList<Book> books){
+		state = BOOK;
+		columnNames.clear();
+		data.clear(); 
+		columnNames.add("ISBN");
+		columnNames.add("Sales Number");
+		if(books == null || books.size() <= 0){
+			DefaultTableModel model = new DefaultTableModel(data, columnNames);
+			table.setModel(model);
+		}else{
+			for(Book book : books){
+				Vector<String> tuple = new Vector<String>();
+				tuple.add(String.valueOf(book.getISBN()));
+				tuple.add(String.valueOf(book.getSalesNumber()));
+				data.add(tuple);
+			}
+			DefaultTableModel model = new DefaultTableModel(data, columnNames);
+			table.setModel(model);
+		}
+	}
+	
 	private void updateTableCustomer(ArrayList<User> users){
 		state = CUSTOMER;
 		columnNames.clear();
@@ -204,6 +225,27 @@ public class MainView extends JFrame {
 				tuple.add(user.getEmail());
 				tuple.add(user.getPhoneNumber());
 				tuple.add(user.getShippingAddress());
+				data.add(tuple);
+			}
+			DefaultTableModel model = new DefaultTableModel(data, columnNames);
+			table.setModel(model);
+		}
+	}
+	
+	private void updateTableTop5Customer(ArrayList<User> users){
+		state = CUSTOMER;
+		columnNames.clear();
+		data.clear(); 
+		columnNames.add("User Name");
+		columnNames.add("Sales Number");
+		if(users == null || users.size() <= 0){
+			DefaultTableModel model = new DefaultTableModel(data, columnNames);
+			table.setModel(model);
+		}else{
+			for(User user : users){
+				Vector<String> tuple = new Vector<String>();
+				tuple.add(String.valueOf(user.getUserName()));
+				tuple.add(String.valueOf(user.getSalesNumber()));
 				data.add(tuple);
 			}
 			DefaultTableModel model = new DefaultTableModel(data, columnNames);
@@ -338,7 +380,6 @@ public class MainView extends JFrame {
 	private class ShowOrderAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
 			orders = controller.getAllOrder();
 			updateTableOrders(orders);
 		}
@@ -394,7 +435,7 @@ public class MainView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			customer = controller.getTopFiveCustomers();
-			updateTableCustomer(customer);
+			updateTableTop5Customer(customer);
 		}
 	}
 	
@@ -402,7 +443,7 @@ public class MainView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			searchBooks = controller.getTopTenBooks();
-			updateTableBooks(searchBooks);
+			updateTableTop10Books(searchBooks);
 		}
 	}
 	
