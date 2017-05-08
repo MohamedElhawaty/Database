@@ -30,9 +30,9 @@ public class User {
     String query = "Update `user` SET"
         + " password = " 
         +"\'"+ this.password +"\'"+" ,"
-        +"firstName = " 
+        +"FName = " 
         +"\'"+ this.firstName +"\'"+ " ,"
-        +"lastName = " 
+        +"LName = " 
         +"\'"+ this.lastName + "\' ,"
         +"email = " 
         +"\'"+ this.email +"\'";

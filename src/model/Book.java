@@ -20,7 +20,7 @@ public class Book {
     this.price = 20;
     this.numberOfCopies = 0;
     this.threshold = 0;
-
+    authors = new ArrayList<String>();
   }
   
   public int getSalesNumber() {

@@ -10,6 +10,7 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -41,7 +42,7 @@ public class UserView extends JFrame implements WindowListener{
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     this.setSize(new Dimension(500,450));
     this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-    this.setTitle("Sign Up");
+    this.setTitle("User Info");
     
 		int x1 = 10 , x2  = 10+200+10 , y = 10 , w = 200 , h = 35 ;
 		JLabel userNameLabel = new JLabel("User Name: ");
@@ -157,16 +158,20 @@ public class UserView extends JFrame implements WindowListener{
 			if(signup){
 				if(controller.signup(temp)){
 					user = temp;
+          JOptionPane.showMessageDialog(null, "Signed Up" );
+
+	        frame.dispose();
 				}
 				update(user);
 				// if done show message success or failed
 				MainView mainView = new MainView(user);
 				mainView.setVisible(true);
-				frame.setVisible(false);
 			}else{
 				/// i need editInformation to return something to indicate if finish success or not
 				if(controller.editInformation(temp)){
 					user = temp;
+          JOptionPane.showMessageDialog(null, "Edit Done" );
+					frame.dispose();
 				}
 				update(user);
 				// if done show message success or failed
