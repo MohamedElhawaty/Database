@@ -148,6 +148,7 @@ public class MainView extends JFrame {
 	private void updateTableBooks(ArrayList<Book> books){
 		state = BOOK;
 		columnNames.clear();
+		data.clear(); 
 		columnNames.add("ISBN");
 		columnNames.add("Title");
 		columnNames.add("publisherName");
@@ -183,6 +184,7 @@ public class MainView extends JFrame {
 	private void updateTableCustomer(ArrayList<User> users){
 		state = CUSTOMER;
 		columnNames.clear();
+		data.clear(); 
 		columnNames.add("User Name");
 		columnNames.add("First Name");
 		columnNames.add("last Name");
@@ -212,6 +214,7 @@ public class MainView extends JFrame {
 	private void updateTableOrders(ArrayList<Order> orders){
 		state = ORDER;
 		columnNames.clear();
+		data.clear(); 
 		columnNames.add("ID");
 		columnNames.add("ISBN");
 		columnNames.add("Quantitiy");
