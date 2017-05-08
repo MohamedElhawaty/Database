@@ -174,9 +174,13 @@ public class Controller {
       this.con.setAutoCommit(false);
       this.user.checkOut();
       this.con.commit();
+      JOptionPane.showMessageDialog(null,"Commit Done");
+
     } catch (SQLException e1) {
       try {
         this.con.rollback();
+        JOptionPane.showMessageDialog(null,"RollBack Done");
+
         return false;
       } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
