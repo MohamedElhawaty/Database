@@ -38,7 +38,7 @@ public class MainView extends JFrame {
 	private final String [] buttons = {"profile", "Add to Cart", "Show Cart", "New Book", "Edit Book",
 				"Place Order","Show Orders" , "Confirm Order", "Show Customers", "Promote Customer", "Total Sales", "Top 5 Customer", "Top 10 Books", "Add Publisher"};
 	private ActionListener[] actions;
-	private String selectedAttribute;
+	private String selectedAttribute = "ISBN";
 	private User user;
 	private Controller controller;
 	private static ArrayList<Book> searchBooks = new ArrayList<Book>();
@@ -311,9 +311,18 @@ public class MainView extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(state == BOOK){
-				Book selectedBook = searchBooks.get(table.getSelectedRow());
-				BookView bookView = new BookView(selectedBook, false);
-				bookView.setVisible(true);
+				String toBuy = JOptionPane.showInputDialog(frame, "How many copies you want to buy?");
+				int index = table.getSelectedRow();
+				if(index < searchBooks.size()){
+					Book selectedBook = searchBooks.get(index);
+					if(selectedBook != null){
+						user.addBookToShoppingCart(selectedBook, Integer.valueOf(toBuy));
+					}else{
+						JOptionPane.showMessageDialog(null, "no selected book!!" , "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}else{
+					JOptionPane.showMessageDialog(null, "selected book index invalid!!" , "Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 			
 		}
