@@ -98,7 +98,7 @@ public class Book {
           +this.threshold + " ) "; 
    
     Controller.stmt.executeUpdate(query); 
-    if(this.year != null){
+    if(!this.year.equals("")){
       this.modify();
     }
     for(String author : this.authors){
@@ -115,11 +115,10 @@ public class Book {
         +"numberOfCopies = " + this.numberOfCopies + " ,"
         +"price = " + this.price + " ,"
         +"threshold = " + this.threshold ;        
-    if(this.year != null){
+    if(!this.year.equals("")){
       query += " ,year = " + "\""+this.year+"\"" ;
     }
     query  += " WHERE ISBN =  " + this.ISBN;
-    System.out.println(query);
 
     Controller.stmt.executeUpdate(query); 
     
