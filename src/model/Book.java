@@ -120,5 +120,18 @@ public class Book {
     query  += " WHERE ISBN =  " + this.ISBN;
     Controller.stmt.executeUpdate(query); 
   }
- 
+  @Override
+  public int hashCode()
+  {
+    return this.ISBN;
+  }
+  
+  @Override
+  public boolean equals( Object book )
+  {
+    if(book  instanceof Book){
+      return this.ISBN == ((Book)book).ISBN;
+    }
+    return false;
+  }
 }

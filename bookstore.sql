@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2017 at 11:24 AM
+-- Generation Time: May 07, 2017 at 06:54 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -280,38 +280,38 @@ ALTER TABLE `user`
 -- Constraints for table `book`
 --
 ALTER TABLE `book`
-  ADD CONSTRAINT `publisherfk` FOREIGN KEY (`publisherName`) REFERENCES `publisher` (`name`);
+  ADD CONSTRAINT `publisherfk` FOREIGN KEY (`publisherName`) REFERENCES `publisher` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `bookauthor`
 --
 ALTER TABLE `bookauthor`
-  ADD CONSTRAINT `authorfk` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`);
+  ADD CONSTRAINT `authorfk` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `order`
 --
 ALTER TABLE `order`
-  ADD CONSTRAINT `orderfk` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`);
+  ADD CONSTRAINT `orderfk` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `publisheraddress`
 --
 ALTER TABLE `publisheraddress`
-  ADD CONSTRAINT `namefk` FOREIGN KEY (`name`) REFERENCES `publisher` (`name`);
+  ADD CONSTRAINT `namefk` FOREIGN KEY (`name`) REFERENCES `publisher` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `publisherphone`
 --
 ALTER TABLE `publisherphone`
-  ADD CONSTRAINT `phonefk` FOREIGN KEY (`name`) REFERENCES `publisher` (`name`);
+  ADD CONSTRAINT `phonefk` FOREIGN KEY (`name`) REFERENCES `publisher` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sales`
 --
 ALTER TABLE `sales`
-  ADD CONSTRAINT `salesfk1` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`),
-  ADD CONSTRAINT `salesfk2` FOREIGN KEY (`userName`) REFERENCES `user` (`name`);
+  ADD CONSTRAINT `salesfk1` FOREIGN KEY (`ISBN`) REFERENCES `book` (`ISBN`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `salesfk2` FOREIGN KEY (`userName`) REFERENCES `user` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

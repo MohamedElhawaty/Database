@@ -58,8 +58,21 @@ public class User {
   public void addBookToShoppingCart(Book book){
     this.shoppingCart.put(book,1);
   }
-  
-  
+  public void removeBookFromShoppingCart(int ISBN){
+    for(Book book : this.shoppingCart.keySet()){
+       if(book.getISBN() == ISBN){
+         this.shoppingCart.remove(book);
+         break;
+       }
+    }
+  }
+  public double getShoppingCartPrice(){
+    double t = 0;
+    for(Book book : this.shoppingCart.keySet()){
+      t += book.getPrice();
+    }
+    return t;
+  }
   
   public void checkOut() throws SQLException {
     for(Book book : this.shoppingCart.keySet()){

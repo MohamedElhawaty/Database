@@ -318,7 +318,7 @@ public class Controller {
           us.setEmail(rs.getString("Email"));
           us.setFirstName(rs.getString("Fname"));
           us.setLastName(rs.getString("Lname"));
-          us.setPassword(rs.getString("password"));
+          //us.setPassword(rs.getString("password"));
           us.setPhoneNumber(rs.getString("phoneNumber"));
           us.setShippingAddress(rs.getString("shippingAddress"));
           us.setUserName(rs.getString("name"));
@@ -370,5 +370,30 @@ public class Controller {
     }
     return true;
 
+  }
+  public ArrayList<Order> getAllOrder(){
+    ArrayList<Order> orders = new ArrayList<Order>();
+    if (user instanceof Manager) {
+      try {
+        ResultSet rs = ((Manager) this.user).getAllOrder();
+
+        while (rs.next()) {
+          Order o = new Order();
+          o.setOrderId(rs.getInt("OrderId"));
+          o.setISBN(rs.getInt("ISBN"));
+          o.setQuantity(rs.getInt("quantity"));
+          orders.add(o);
+        }
+      } catch (SQLException e) {
+        // View.showError(e.getMessage());
+        return null;
+
+      }
+    } else {
+      // View.showError("NOT ALLOWED");
+      return null;
+
+    }
+    return orders;
   }
 }

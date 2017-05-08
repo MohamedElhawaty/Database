@@ -37,6 +37,12 @@ public class Manager extends User {
     return Controller.stmt.executeQuery(query);
 
   }
+  public ResultSet getAllOrder() throws SQLException {
+    String query = "Select * from `order`";
+    return Controller.stmt.executeQuery(query);
+
+  }
+
 
   public ResultSet getTopFiveCustomers() throws SQLException {
     String query = "Select userName , sum(salesNumber) from sales"
