@@ -14,6 +14,9 @@ import java.awt.event.WindowListener;
 import javax.swing.JButton;
 
 public class Login extends JFrame implements WindowListener{
+	
+	private JFrame frame = this;
+	
 	public Login() {
 		getContentPane().setLayout(null);
 		
@@ -81,8 +84,9 @@ public class Login extends JFrame implements WindowListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			UserView userView = new UserView(new User(), true); /// may pass user to constructor :D 
+			UserView userView = new UserView(new User(), true);
 			userView.setVisible(true);
+			frame.setVisible(false);
 		}
 		
 	}

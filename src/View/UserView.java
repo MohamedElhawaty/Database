@@ -33,6 +33,11 @@ public class UserView extends JFrame implements WindowListener{
 	private boolean signup;
 	
 	public UserView(User user, boolean signup) {
+		
+		this.user = user;
+		this.signup = signup;
+		//controller =  Controller.getInstance();
+		
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
@@ -115,9 +120,10 @@ public class UserView extends JFrame implements WindowListener{
 		getContentPane().add(saveButton);
 		saveButton.addActionListener(new saveAction());
 		
-		//controller =  Controller.getInstance();
-		this.user = user;
-		this.signup = signup;
+		
+		if(!signup){
+			update(user);
+		}
 	}
 	
 
@@ -137,6 +143,15 @@ public class UserView extends JFrame implements WindowListener{
 	@Override
 	public void windowDeactivated(WindowEvent e) {}
 	
+	private void update(User user){
+		userNameField.setText(user.getUserName());
+		passwordField.setText(user.getPassword());
+		firstNameField.setText(user.getFirstName());
+		lastNameField.setText(user.getLastName());
+		emailField.setText(user.getEmail());
+		phoneField.setText(user.getPhoneNumber());
+		addressField.setText(user.getShippingAddress());
+	}
 	
 	private class saveAction implements ActionListener{
 
@@ -152,10 +167,19 @@ public class UserView extends JFrame implements WindowListener{
 			temp.setPhoneNumber(phoneField.getText().toLowerCase());
 			temp.setShippingAddress(addressField.getText().toLowerCase());
 			if(signup){
-				controller.signup(temp);
+				if(controller.signup(temp)){
+					user = temp;
+				}
+				update(user);
+				// if done show message success or failed
 			}else{
 				/// i need editInformation to return something to indicate if finish success or not
-				controller.editInformation(temp);
+				if(controller.editInformation(temp)){
+					user = temp;
+				}
+				update(user);
+				// if done show message success or failed
+				// if faild update by user else update by temp
 			}
 		}
 		

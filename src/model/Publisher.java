@@ -40,6 +40,11 @@ public class Publisher {
     this.phoneNumbers = new ArrayList<String>();
   }
 
+  public Publisher(){
+	  this.addresses = new ArrayList<String>();
+	  this.phoneNumbers = new ArrayList<String>();
+  }
+  
   public void addPhoneNumber(String phone){
     this.phoneNumbers.add(phone);
   }

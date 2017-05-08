@@ -28,6 +28,8 @@ public class OrderView extends JFrame {
 	private boolean create;
 	
 	public OrderView(Order order, boolean create){
+		this.order = order;
+		this.create = create;
 		
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
@@ -72,23 +74,38 @@ public class OrderView extends JFrame {
 		getContentPane().add(saveButton);
 		saveButton.addActionListener(new saveAction());
 		
-		this.order = order;
-		this.create = create;
+		if(!create){
+			update(order);
+		}
 	}
-
+	
+	private void update(Order order){
+		IDField.setText(String.valueOf(order.getOrderId()));
+		ISBNField.setText(String.valueOf(order.getISBN()));
+		quantityField.setText(String.valueOf(order.getQuantity()));
+	}   
+	
 	private class saveAction implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			Order temp = new Order();
+			Order temp = new Order();	//// it's Error 
 			temp.setOrderId(Integer.valueOf(IDField.getText().toLowerCase()));
 			temp.setISBN(Integer.valueOf(ISBNField.getText().toLowerCase()));
 			temp.setQuantity(Integer.valueOf(quantityField.getText().toLowerCase()));
 			if(create){
 				/// call create order
+				if(controller.placeOrder(temp)){
+					order = temp;
+				}
+				update(order);
 			}else{
 				/// call edit order
+//				if(controller.editOrder(temp)){
+//					order = temp;
+//				}
+//				update(order);
 			}
 		}
 		

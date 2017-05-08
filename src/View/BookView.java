@@ -37,6 +37,11 @@ public class BookView extends JFrame implements WindowListener{
 	
 	
 	public BookView(Book book, boolean create) {
+		
+		//controller =  Controller.getInstance();
+		this.book = book;
+		this.create = create;
+		
 		getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormSpecs.RELATED_GAP_COLSPEC,
 				FormSpecs.DEFAULT_COLSPEC,
@@ -128,11 +133,12 @@ public class BookView extends JFrame implements WindowListener{
 		getContentPane().add(saveButton);
 		saveButton.addActionListener(new saveAction());
 		
-		//controller =  Controller.getInstance();
-		this.book = book;
-		this.create = create;
+		if(!create){
+			update(book);
+		}
 	}
 
+	
 	
 	@Override
 	public void windowOpened(WindowEvent e) {}
@@ -149,6 +155,17 @@ public class BookView extends JFrame implements WindowListener{
 	@Override
 	public void windowDeactivated(WindowEvent e) {}
 	
+	private void update(Book book){
+		ISBNField.setText(String.valueOf(book.getISBN()));
+		titleField.setText(book.getTitle());
+		publisherField.setText(book.getPublisherName());
+		yearField.setText(book.getYear());
+		priceField.setText(String.valueOf(book.getPrice()));
+		copiesField.setText(String.valueOf(book.getNumberOfCopies()));
+		thresholdField.setText(String.valueOf(book.getThreshold()));
+		categoryField.setText(book.getCategory());
+		authorsField.setText(book.getAuthors().toString());
+	}
 	
 	private class saveAction implements ActionListener{
 
@@ -166,9 +183,18 @@ public class BookView extends JFrame implements WindowListener{
 			temp.setCategory(categoryField.getText().toLowerCase());
 			temp.setAuthors(getAuthors(authorsField.getText().toLowerCase()));
 			if(create){
-				/// call create book
+				if(controller.addBook(temp)){
+					book = temp;
+				}
+				update(book);
+				//if faild update by book else update by temp & book = temp
 			}else{
 				/// call edit book
+				if(controller.modifyBook(temp)){
+					book = temp;
+				}
+				update(book);
+				//if faild update by book else update by temp & book = temp
 			}
 		}
 		
