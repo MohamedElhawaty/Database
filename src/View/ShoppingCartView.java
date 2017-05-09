@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 import controller.Controller;
@@ -49,7 +50,7 @@ public class ShoppingCartView extends JFrame {
 		controller = Controller.getInstance();
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	    this.setSize(new Dimension(500,300));
+	    this.setSize(new Dimension(1200,500));
 		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		this.setTitle("Order");
 		
@@ -66,7 +67,7 @@ public class ShoppingCartView extends JFrame {
         table.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setVisible(true);
-        scrollPane.setBounds(20,30,300,700);
+        scrollPane.setBounds(20,30,950,700);
         getContentPane().add(scrollPane);
 
 		
@@ -76,7 +77,7 @@ public class ShoppingCartView extends JFrame {
 		actions[1] = new DeleteBookAction();
 		actions[2] = new DeleteAllAction();
 		
-		int x = 333, y = 33, w = 117, h = 25;
+		int x = 1000, y = 33, w = 150, h = 25;
 		for(int i = 0 ; i < 3 ; i++){
 			JButton button = new JButton(buttons[i]);
 			button.setBounds(x, y+=(h+5), w, h);
@@ -84,12 +85,13 @@ public class ShoppingCartView extends JFrame {
 			getContentPane().add(button);
 		}
 		
-		
 			
 	}
 	
 	private void updateTable(LinkedHashMap<Book,Integer> books){
-		columnNames.add("ISBN");
+		columnNames.clear();
+		data.clear();
+	  columnNames.add("ISBN");
 		columnNames.add("Title");
 		columnNames.add("Publisher");
 		columnNames.add("Year");
@@ -125,11 +127,11 @@ public class ShoppingCartView extends JFrame {
 		tuple.add("Total price");
 		tuple.add("");
 		tuple.add("");
-		//tuple.add(String.valueOf(user.getTotalPrice()));
-		tuple.add("");
-		tuple.add("");
-		tuple.add("");
 		tuple.add(String.valueOf(count));
+		tuple.add("");
+		tuple.add("");
+		tuple.add("");
+		tuple.add("");
 		tuple.add("");
 		data.add(tuple);
 		
@@ -141,7 +143,7 @@ public class ShoppingCartView extends JFrame {
 	private class BuyAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			String cartNumber = JOptionPane.showInputDialog(frame, "Enter your cart number: ");
+			String cartNumber = JOptionPane.showInputDialog(frame, "Enter your Credit Card number: ");
 			String date = JOptionPane.showInputDialog(frame, "Enter your cart due date like this dd-MMM-yyyy");
 			
 			DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
@@ -153,11 +155,11 @@ public class ShoppingCartView extends JFrame {
 				now = (java.util.Date) formatter.parse(timeStamp);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
-				e1.printStackTrace();
 				
 			}
-			if(dueDate.after(now)){
+			if(dueDate != null &&  now != null && dueDate.after(now)){
 				controller.checkout();
+				frame.dispose();
 				//JOptionPane.showMessageDialog(null, "Buy Done :D" , "Buy Done", JOptionPane.INFORMATION_MESSAGE);
 			}else{
 				JOptionPane.showMessageDialog(null, "invaled Due date!!\ncheck you due date cart!!" , "Error", JOptionPane.ERROR_MESSAGE);
@@ -167,15 +169,30 @@ public class ShoppingCartView extends JFrame {
 	private class DeleteBookAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Integer ISBN = Integer.valueOf((String)table.getValueAt(table.getSelectedRow(), 0));
-			user.removeBookFromShoppingCart(ISBN);
-			updateTable(user.getShoppingCart());
+		  int index = table.getSelectedRow();
+		  if(index >= 0 && index < table.getRowCount() ){
+		      String ss = (String) table.getValueAt(index, 0);
+  		    if(ss != null && !ss.equals("")){
+  		      Integer ISBN = Integer.valueOf(ss);
+  		      if(ISBN != null){
+  		        user.removeBookFromShoppingCart(ISBN);
+              updateTable(user.getShoppingCart());
+  		      }else{
+  		        JOptionPane.showMessageDialog(null, "can't delete this row!!" , "Error", JOptionPane.ERROR_MESSAGE);
+  		      }
+  		    }else{
+  	        JOptionPane.showMessageDialog(null, "can't delete this row!!" , "Error", JOptionPane.ERROR_MESSAGE);
+  		    }
+		  }else{
+        JOptionPane.showMessageDialog(null, "invaild index to delete!!" , "Error", JOptionPane.ERROR_MESSAGE);
+		  }
+			
 		}
 	}
 	private class DeleteAllAction implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//user.removeAll();
+			user.removeAll();
 			updateTable(user.getShoppingCart());
 		}
 	}

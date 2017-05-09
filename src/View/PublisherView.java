@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import controller.Controller;
 import model.Publisher;
@@ -77,7 +78,6 @@ public class PublisherView extends JFrame {
 		if(!create){
 			update(publisher);
 		}
-		
 	}
 	
 	private void update(Publisher publisher){

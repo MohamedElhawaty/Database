@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import controller.Controller;
 import model.User;
@@ -120,9 +121,13 @@ public class UserView extends JFrame implements WindowListener{
 	@Override
 	public void windowOpened(WindowEvent e) {}
 	@Override
-	public void windowClosing(WindowEvent e) {}
+	public void windowClosing(WindowEvent e) {
+	  
+	}
 	@Override
-	public void windowClosed(WindowEvent e) {}
+	public void windowClosed(WindowEvent e) {
+	  
+	}
 	@Override
 	public void windowIconified(WindowEvent e) {}
 	@Override
@@ -160,11 +165,13 @@ public class UserView extends JFrame implements WindowListener{
 					user = temp;
           JOptionPane.showMessageDialog(null, "Signed Up" );
 	        frame.dispose();
+	        Login login = new Login();
+	        login.setVisible(true);
+				}else{
+  				//update(user);
+  				// if done show message success or failed
+  			
 				}
-				update(user);
-				// if done show message success or failed
-				MainView mainView = new MainView(user);
-				mainView.setVisible(true);
 			}else{
 				/// i need editInformation to return something to indicate if finish success or not
 				if(controller.editInformation(temp)){

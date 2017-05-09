@@ -1,4 +1,5 @@
 package model;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -34,7 +35,7 @@ public class Book {
     return ISBN;
   }
   public void setISBN(int iSBN) {
-    ISBN = iSBN;
+    this.ISBN = iSBN;
   }
   public String getTitle() {
     return title;
@@ -121,7 +122,14 @@ public class Book {
     query  += " WHERE ISBN =  " + this.ISBN;
 
     Controller.stmt.executeUpdate(query); 
-    
+    query = "delete from BookAuthor where "
+        + "ISBN = "+ this.ISBN ;
+    Controller.stmt.executeUpdate(query); 
+    for(String author : this.authors){
+      query = "Insert into BookAuthor (ISBN,authorName)"
+          + "Value ( "+ this.ISBN+ " , " +"\'"+ author +"\'"+" )";
+      Controller.stmt.executeUpdate(query); 
+    }
   }
   @Override
   public int hashCode()

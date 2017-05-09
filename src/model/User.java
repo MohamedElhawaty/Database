@@ -58,11 +58,12 @@ public class User {
       query= "Select * from Book where " + attrubite + " = " +"\'" +value+"\'";
 
     }
+    
     return Controller.stmt.executeQuery(query); 
   }
   
   private ResultSet searchBookByAuthor(String author) throws SQLException{
-    String query = "Select * from book where ISBN = ( select "
+    String query = "Select * from book where ISBN in ( select "
         + "ISBN from bookAuthor where authorName = " 
         +"\'"+ author +"\'"+ " )";
     return Controller.stmt.executeQuery(query); 

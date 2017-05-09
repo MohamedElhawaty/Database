@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import controller.Controller;
 import model.User;
@@ -49,6 +50,7 @@ public class Login extends JFrame implements WindowListener{
 		signupButton.addActionListener(new signupAction());
 		
 		controller =  Controller.getInstance();
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	}
 
 	/**

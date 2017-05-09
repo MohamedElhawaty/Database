@@ -9,7 +9,7 @@ import model.*;
 
 public class Controller {
   public static Statement stmt;
-  private Connection con;
+  public static Connection con;
   private User user;
   private static Controller controller ;
   private Controller() {
@@ -155,12 +155,22 @@ public class Controller {
         book.setCategory(rs.getString("category"));
         book.setISBN(rs.getInt("ISBN"));
         book.setNumberOfCopies(rs.getInt("numberOfCopies"));
-        book.setPrice(rs.getInt("price"));
+        book.setPrice(rs.getDouble("price"));
         book.setPublisherName(rs.getString("publisherName"));
         book.setThreshold(rs.getInt("threshold"));
         book.setTitle(rs.getString("title"));
         book.setYear(rs.getString("year"));
         books.add(book);
+       
+      }
+      for(Book book:books){
+        String query = " Select authorName from bookauthor where ISBN = "+book.getISBN() ;
+        ResultSet rs2 =  Controller.stmt.executeQuery(query); 
+        ArrayList<String> authors = new ArrayList<>();
+        while (rs2.next()) {
+          authors.add(rs2.getString("authorName"));
+        }
+        book.setAuthors(authors);
       }
       return books;
     } catch (SQLException e) {
@@ -476,4 +486,14 @@ public class Controller {
     }
     return orders;
   }
+  public void close(){
+    try {
+    con.close();
+    System.out.println("closed");
+  } catch (SQLException e) {
+    // TODO Auto-generated catch block
+    e.printStackTrace();
+  }
+  }
+
 }
