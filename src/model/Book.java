@@ -102,6 +102,10 @@ public class Book {
     if(!this.year.equals("")){
       this.modify();
     }
+      query = "Delete from BookAuthor Where "
+          + "ISBN = "+ this.ISBN;
+      Controller.stmt.executeUpdate(query); 
+   
     for(String author : this.authors){
       query = "Insert into BookAuthor (ISBN,authorName)"
           + "Value ( "+ this.ISBN+ " , " +"\'"+ author +"\'"+" )";
